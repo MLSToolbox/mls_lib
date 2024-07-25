@@ -1,6 +1,6 @@
-from mls_lib.model_training import ModelTrainingStep
+from . model_training_step import ModelTrainingStep
 
-class TrainModel(ModelTrainingStep):
+class SKLModelTrainer(ModelTrainingStep):
     def __init__(self, epochs : int, bach_size : int, features, truth, optimizer, model) -> None:
         super().__init__()
 

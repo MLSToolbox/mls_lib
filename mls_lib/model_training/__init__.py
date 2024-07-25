@@ -1,2 +1,1 @@
-from . ModelTrainingStep import ModelTrainingStep
-from . TrainModel import TrainModel
+from .sklearn_model_trainer import SKLModelTrainer

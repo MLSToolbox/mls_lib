@@ -1,6 +1,5 @@
 from mls_lib.data_collection import DataCollectionStep
-from mls_lib.data_collection import DataFrame
-from mls_lib.data_collection.loaders import *
+from mls_lib.objects.data_frame import DataFrame
 
 class LoadDataset(DataCollectionStep):
     def __init__(self, path : str, loader : str):
@@ -15,7 +14,3 @@ class LoadDataset(DataCollectionStep):
         )
 
         self.outputs["resulting_table"] = data
-
-    def getLoaderFromTermination(self, termination : str):
-        if termination == "csv":
-            return CSVLoader

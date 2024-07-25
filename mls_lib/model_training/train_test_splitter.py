@@ -1,8 +1,8 @@
-from mls_lib.data_transformation import DataTransformationStep
+from . model_training_step import ModelTrainingStep
 from sklearn.model_selection import train_test_split
 from mls_lib.data_collection import DataFrame
 
-class SplitTrainTest(DataTransformationStep):
+class train_test_splitter(ModelTrainingStep):
     def __init__(self, train_percentage : float, features, truth):
         super().__init__()
         self.train_percentage = train_percentage

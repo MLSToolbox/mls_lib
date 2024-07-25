@@ -1,6 +1,6 @@
-from mls_lib.feature_engineering import FeatureEngineeringStep
+from . feature_engineering_step import FeatureEngineeringStep
 
-class TrainScaler(FeatureEngineeringStep):
+class ScalerTrainer(FeatureEngineeringStep):
     def __init__(self, columns, data, scaler):
         super().__init__()
         self.columns = columns

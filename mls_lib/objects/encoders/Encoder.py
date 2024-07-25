@@ -1,4 +1,5 @@
-class Encoder():
+from mls_lib.objects import Object
+class Encoder(Object):
     def __init__(self, encoder) -> None:
         """
         Initializes the class instance with a given encoder.
@@ -9,6 +10,7 @@ class Encoder():
         Returns:
             None
         """
+        super().__init__()
         self.encoder = encoder
 
     def fit_transform(self, data):

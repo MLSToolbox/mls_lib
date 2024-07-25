@@ -1,6 +1,7 @@
 import numpy as np
+from mls_lib.objects import Object
 
-class Scaler:
+class Scaler(Object):
     def __init__(self, scaler) -> None:
         """
         Initializes the class instance with a given scaler and column.

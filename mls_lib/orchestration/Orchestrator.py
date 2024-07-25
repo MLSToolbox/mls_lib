@@ -22,9 +22,9 @@ class Orchestrator:
         for step in self.steps:
             if (type(step) == In):
                 origin, port = self.inputs[step.key]
-                step.set(step.key, origin.get(port))
+                step.setInput(step.key, origin.get(port))
 
             step.execute()
             if (type(step) == Out):
-                val = step.get(step.key)
+                val = step.getOutput(step.key)
                 self.outputs[step.key] = val
