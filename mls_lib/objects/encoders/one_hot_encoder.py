@@ -1,4 +1,4 @@
-from mls_lib.objects.encoders import Encoder
+from . encoder import Encoder
 from category_encoders import OneHotEncoder
 class OneHotEncoder(Encoder):
     def __init__(self) -> None:

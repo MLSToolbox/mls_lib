@@ -1,2 +1,3 @@
-from . Encoder import Encoder
-from . OneHotEncoder import OneHotEncoder
+from . encoder import Encoder
+from . one_hot_encoder import OneHotEncoder
+from . cat_boost_encoder import CategoricalBoostEncoder

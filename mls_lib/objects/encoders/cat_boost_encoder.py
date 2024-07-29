@@ -1,5 +1,5 @@
-from mls_lib.objects.encoders import Encoder
+from . encoder import Encoder
 from category_encoders import CatBoostEncoder
-class CategoricEncoder(Encoder):
+class CategoricalBoostEncoder(Encoder):
     def __init__(self) -> None:
         super().__init__(CatBoostEncoder())

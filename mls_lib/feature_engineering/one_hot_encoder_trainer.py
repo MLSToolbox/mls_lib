@@ -1,7 +1,7 @@
-from . encoder_trainer import EncoderTrainer
+from . feature_engineering_step import FeatureEngineeringStep
 from mls_lib.objects.encoders import OneHotEncoder
 
-class TrainOneHotEncoder(EncoderTrainer):
+class OneHotEncoderTrainer(FeatureEngineeringStep):
     def __init__(self, columns, data):
         super().__init__(columns, data)
         self.encoder = OneHotEncoder()

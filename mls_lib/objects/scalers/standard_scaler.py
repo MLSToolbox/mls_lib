@@ -1,6 +1,6 @@
-from mls_lib.feature_engineering.scalers import Scaler
+from . scaler import Scaler
 from sklearn.preprocessing import StandardScaler
 
-class Standard(Scaler):
+class StandardScaler(Scaler):
     def __init__(self) -> None:
         super().__init__(StandardScaler())
