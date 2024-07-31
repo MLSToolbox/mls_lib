@@ -26,3 +26,5 @@ class SKLModelTrainer(ModelTrainingStep):
         model.fit(features, truth, epochs=self.epochs, batch_size=self.bach_size, optimizer=optimizer)
 
         self.outputs["model"] = model
+
+        self.finishExecution()

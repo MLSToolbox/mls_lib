@@ -1,3 +1,2 @@
-from . LinearRegression import LinearRegression
-from . Model import Model
-from . ModelStep import ModelStep
+from .model import Model
+from .svm_model import SVMModel

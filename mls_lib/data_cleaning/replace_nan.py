@@ -9,7 +9,12 @@ class ReplaceNaN(DataCleaningStep):
         self.value = value
         
     def execute(self):
-        origin, port = self.origin
-        data = origin.get(port).data
-        data = data.fillna(self.value)
-        self.outputs["result"] = data
+        data = self._getInput("origin")
+        
+        df = data.getData()
+        df = df.fillna(self.value)
+        data.setData(df)
+
+        self._setOutput("result", data)
+
+        self.finishExecution()

@@ -1,9 +1,16 @@
-from .text_loader import TextLoader
+from .data_collection_step import DataCollectionStep
+from mls_lib.objects.data_frame import DataFrame
+import pandas as pd
 
-class JSONLoader(TextLoader):
-    def __init__(self, path):
-        super().__init__(path)
-        pass
+class JSONLoader(DataCollectionStep):
+    def __init__(self, path : str):
+        super().__init__(),
+        self.path = path
 
-    def load(self):
-        pass
+    def execute(self):
+        df = DataFrame()
+        data = pd.read_json(self.path)
+        df.setData(data)
+        self._setOutput("resulting_table", df)
+        
+        self.finishExecution()

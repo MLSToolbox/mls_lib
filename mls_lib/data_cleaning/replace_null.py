@@ -1,15 +1,20 @@
 from mls_lib.data_cleaning import DataCleaningStep
 
 class ReplaceNull(DataCleaningStep):
-    def __init__(self, value, origin):
+    def __init__(self, value, data_in):
         super().__init__(
-            origin = origin
+            data_in = data_in
         )
-        
         self.value = value
 
     def execute(self):
-        origin, port = self.origin
-        data = origin.get(port).data
-        ## FIXME:  data = data.fillna(self.value)
-        self.outputs["result"] = data
+        data = self._getInput("data_in")
+
+        df = data.getData()
+        df = df.fillna(self.value)
+        data.setData(df)
+
+        self._setOutput("out", data)
+
+        self.finishExecution()
+

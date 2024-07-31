@@ -1,6 +1,5 @@
 from mls_lib.orchestration import Step
 
 class DataCleaningStep(Step):
-    def __init__(self, origin) -> None:
-        super().__init__()
-        self.origin = origin
+    def __init__(self, **inputs) -> None:
+        super().__init__(**inputs)

@@ -1,17 +1,19 @@
-from . data_transformer import DataTransformer
-
-class ColumnSelect(DataTransformer):
-    def __init__(self, columns):
-        super().__init__()
+from . feature_engineering_step import FeatureEngineeringStep
+class ColumnSelect(FeatureEngineeringStep):
+    def __init__(self, input_table, columns):
+        super().__init__(
+            input_table = input_table
+        )
         self.columns = columns
 
     def execute(self):
-        origin, port = self.__getInput("input_table")
-        dataframe = origin.get(port)
+        dataframe = self._getInput("input_table")
 
         data = dataframe.getData()
         data = data[self.columns]
 
         dataframe.setData(data)
 
-        self.__setOutput("resulting_table", dataframe)
+        self._setOutput("resulting_table", dataframe)
+
+        self.finishExecution()

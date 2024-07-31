@@ -1,2 +1,2 @@
-from . Evaluate import Evaluate
-from . ModelEvaluationStep import ModelEvaluationStep
+from .model_evaluation_step import ModelEvaluationStep
+from .evaluate import Evaluate

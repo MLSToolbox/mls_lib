@@ -1,6 +1,6 @@
-from . data_transformer import DataTransformer
+from . feature_engineering_step import FeatureEngineeringStep
 
-class Join(DataTransformer):
+class Join(FeatureEngineeringStep):
     def __init__(self, left, right, on, how):
         super().__init__(
             left = left,
@@ -11,3 +11,4 @@ class Join(DataTransformer):
 
     def execute(self): # FIXME: write functionality
         pass
+        self.finishExecution()
