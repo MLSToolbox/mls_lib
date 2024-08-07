@@ -8,7 +8,7 @@ class OneHotEncoderTrainer(FeatureEngineeringStep):
         self.columns = columns
         self.encoder = OneHotEncoder()
     
-    def fit_transform(self):
+    def execute(self):
         data = self._getInput("data")
         df = data.getData()
 
@@ -17,5 +17,7 @@ class OneHotEncoderTrainer(FeatureEngineeringStep):
         data.setData(df)
 
         self._setOutput("encoder", self.encoder)
+
+        self._setOutput("data", data)
         
         self.finishExecution()

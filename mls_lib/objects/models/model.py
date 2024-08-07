@@ -1,7 +1,4 @@
-from copy import deepcopy
-class Model:
+from mls_lib.objects import Object
+class Model(Object):
     def __init__(self):
-        pass
-
-    def copy(self):
-        return deepcopy(self)
+        super().__init__()

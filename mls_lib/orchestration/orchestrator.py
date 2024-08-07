@@ -76,7 +76,7 @@ class Orchestrator:
             step_key = self.step_keys[i]
             step = self.steps[step_key]
             if (step.isReady() and (not step.isFinished())):
-                print("Executing step: " + str(type(step)))
+                # print("Executing step: " + str(type(step)))
                 step.execute()
                 finish_count += 1
             

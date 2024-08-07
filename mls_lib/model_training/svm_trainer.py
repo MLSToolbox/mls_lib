@@ -1,18 +1,20 @@
 from .model_training_step import ModelTrainingStep
 from mls_lib.objects.models import SVMModel
 class SVMTrainer(ModelTrainingStep):
-    def __init__(self, model_parameters, optimizer, features, truth) -> None:
+    def __init__(self, kernel, features, truth) -> None:
         super().__init__(
-            optimizer = optimizer,
             features = features,
             truth = truth
         )
-        self.model_parameters = model_parameters
+        self.model = SVMModel(
+            kernel = kernel
+        )
     def execute(self):
-        model = SVMModel()
+        features = self._getInput('features')
+        truth = self._getInput('truth')
 
-        #model.train(self.model_parameters)
-        
-        self._setOutput("model", model)
+        self.model.train(features.getData(), truth.getData())
+
+        self._setOutput("model", self.model)
 
         self.finishExecution()

@@ -13,7 +13,7 @@ class Encoder(Object):
         super().__init__()
         self.encoder = encoder
 
-    def fit_transform(self, data):
+    def fit_transform(self, data, columns):
         """
         Fits the encoder to the data and performs a transform operation on the data.
 
@@ -23,7 +23,7 @@ class Encoder(Object):
         Returns:
             None
         """
-        data.data = self.encoder.fit_transform(data.data)
+        self.encoder.fit_transform(data[columns])
 
     def transform(self, data):
         """
