@@ -1,6 +1,9 @@
+""" SKLModelTrainer: Component that trains and makes predictions. """
+
 from . model_training_step import ModelTrainingStep
 
 class SKLModelTrainer(ModelTrainingStep):
+    """ SKLModelTrainer: Component that trains and makes predictions. """
     def __init__(self, epochs : int, bach_size : int, features, truth, optimizer, model) -> None:
         super().__init__()
 
@@ -23,8 +26,10 @@ class SKLModelTrainer(ModelTrainingStep):
         truth_origin, port = self.truth
         truth = truth_origin.get(port)
 
-        model.fit(features, truth, epochs=self.epochs, batch_size=self.bach_size, optimizer=optimizer)
+        model.fit(
+            features, truth, epochs=self.epochs,
+            batch_size=self.bach_size, optimizer=optimizer)
 
         self.outputs["model"] = model
 
-        self.finishExecution()
+        self.finish_execution()

@@ -1,5 +1,7 @@
+""" SelectColumns: Component that selects columns from the input table. """
 from .feature_engineering_step import FeatureEngineeringStep
 class SelectColumns(FeatureEngineeringStep):
+    """ SelectColumns: Component that selects columns from the input table. """
     def __init__(self, columns, origin_table):
         super().__init__(
             origin_table = origin_table
@@ -7,7 +9,7 @@ class SelectColumns(FeatureEngineeringStep):
         self.columns = columns
 
     def execute(self):
-        dataframe = self._getInput("origin_table")
+        dataframe = self._get_input("origin_table")
 
         new_df = dataframe.copy()
         data = new_df.getData()
@@ -16,6 +18,6 @@ class SelectColumns(FeatureEngineeringStep):
 
         new_df.setData(data)
 
-        self._setOutput("resulting_table", new_df)
+        self._set_output("resulting_table", new_df)
 
-        self.finishExecution()
+        self.finish_execution()

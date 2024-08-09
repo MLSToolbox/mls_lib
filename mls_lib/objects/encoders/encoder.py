@@ -1,5 +1,8 @@
+""" Encoder: Component that encodes categorical data. """
 from mls_lib.objects import Object
+
 class Encoder(Object):
+    """ Encoder: Component that encodes categorical data. """
     def __init__(self, encoder) -> None:
         """
         Initializes the class instance with a given encoder.

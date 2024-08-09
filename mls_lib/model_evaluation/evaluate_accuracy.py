@@ -1,7 +1,8 @@
+""" Accuracy evaluation step. """
 from . model_evaluation_step import ModelEvaluationStep
-from sklearn import metrics
-import pandas as pd
+
 class EvaluateAccuracy(ModelEvaluationStep):
+    """ Accuracy evaluation step. """
     def __init__(self, features, truth, model):
         super().__init__(
             features = features,
@@ -10,12 +11,13 @@ class EvaluateAccuracy(ModelEvaluationStep):
         )
 
     def execute(self):
-        model = self._getInput('model')
-        x_test = self._getInput('features').getData()
-        y_test = self._getInput('truth').getData()
-                
+        model = self._get_input('model')
+        x_test = self._get_input('features').getData()
+        y_test = self._get_input('truth').getData()
+
         result = model.score(x_test, y_test)
 
-        self._setOutput("result", result)
+        self._set_output("result", result)
 
-        self.finishExecution()
+        self.finish_execution()
+        

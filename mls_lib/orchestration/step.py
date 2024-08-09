@@ -1,35 +1,40 @@
+""" Step """
 class Step:
+    """
+    Abstract Step
+    """
     def __init__(self, **inputs) -> None:
         self.inputs = inputs
-        self.outputs = dict()
+        self.outputs = {}
         self.finished = False
-        pass
+        self.step_category = "abstract_step"
 
     def execute(self):
-        raise Exception("Executed abstract Step")
-    
-    def getOutput(self, port):
+        """ Execute the step. """    
+    def get_output(self, port):
+        """ Get the output of the step. """
         return self.outputs[port]
-    
-    def _getInputStep(self, port):
+    def _get_input_step(self, port):
+        """ Get the input step of the step. """
         return self.inputs[port]
-    
-    def isReady(self):
+    def is_ready(self):
+        """ Check if the step is ready. """
         for _, step in self.inputs.items():
             if not step[0].isFinished():
                 return False
-        
         return True
 
-    def isFinished(self):
+    def is_finished(self):
+        """ Check if the step is finished. """
         return self.finished
-     
-    def _getInput(self, port):
+    def _get_input(self, port):
+        """ Get the input of the step. """
         origin, origin_port = self.inputs[port]
         return origin.getOutput(origin_port)
 
-    def _setOutput(self, port, value):
+    def _set_output(self, port, value):
+        """ Set the output of the step. """
         self.outputs[port] = value
-    
-    def finishExecution(self):
+    def finish_execution(self):
+        """ Finish the execution of the step. """
         self.finished = True
