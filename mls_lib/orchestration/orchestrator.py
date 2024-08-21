@@ -41,7 +41,7 @@ class Orchestrator:
         Returns:
             The output of the step with the given key and port.
         """
-        return self.steps[step_key].getOutput(port)
+        return self.steps[step_key].get_output(port)
     def clear(self):
         """
         Clear the steps in the orchestrator.
@@ -71,7 +71,7 @@ class Orchestrator:
         Returns:
             None
         """
-        finished = False
+        finished = len(self.step_keys) == 0
         i = 0
         finish_count = 0
         while not finished:

@@ -20,7 +20,7 @@ class Step:
     def is_ready(self):
         """ Check if the step is ready. """
         for _, step in self.inputs.items():
-            if not step[0].isFinished():
+            if not step[0].is_finished():
                 return False
         return True
 
@@ -30,7 +30,7 @@ class Step:
     def _get_input(self, port):
         """ Get the input of the step. """
         origin, origin_port = self.inputs[port]
-        return origin.getOutput(origin_port)
+        return origin.get_output(origin_port)
 
     def _set_output(self, port, value):
         """ Set the output of the step. """
