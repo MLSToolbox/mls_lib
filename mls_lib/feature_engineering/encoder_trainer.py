@@ -11,11 +11,11 @@ class EncoderTrainer(FeatureEngineeringStep):
 
     def execute(self):
         data = self._get_input("data")
-        df = data.getData()
+        df = data.get_data()
 
         self.encoder.fit_transform(df, self.columns)
 
-        data.setData(df)
+        data.set_data(df)
 
         self._set_output("encoder", self.encoder)
 

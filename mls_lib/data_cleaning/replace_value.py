@@ -12,9 +12,9 @@ class ReplaceValue(DataCleaningStep):
 
     def execute(self):
         data = self._get_input("data_in").copy()
-        df = data.getData()
+        df = data.get_data()
         df[self.column] = df[self.column].map(self.value_map)
-        data.setData(df)
+        data.set_data(df)
         self._set_output("out", data)
 
         self.finish_execution()

@@ -14,7 +14,7 @@ class ReplaceNull(DataCleaningStep):
     def execute(self):
         data = self._get_input("data_in").copy()
 
-        df = data.getData()
+        df = data.get_data()
         if self.strategy == 'average':
             self.__use_avg(df)
         elif self.strategy == 'zero':
@@ -22,7 +22,7 @@ class ReplaceNull(DataCleaningStep):
         elif self.strategy == 'mode':
             self.__use_mode(df)
 
-        data.setData(df)
+        data.set_data(df)
 
         self._set_output("out", data)
 

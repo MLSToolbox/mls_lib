@@ -16,10 +16,10 @@ class SplitTrainTest(ModelTrainingStep):
         self.train_percentage = train_percentage
     def execute(self):
         features_dataframe= self._get_input('features')
-        features_data = features_dataframe.getData()
+        features_data = features_dataframe.get_data()
 
         truth_dataframe = self._get_input('truth')
-        truth_data = truth_dataframe.getData()
+        truth_data = truth_dataframe.get_data()
 
         x_train, x_test, y_train, y_test = train_test_split(
             features_data,

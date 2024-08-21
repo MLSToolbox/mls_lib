@@ -12,11 +12,11 @@ class SelectColumns(FeatureEngineeringStep):
         dataframe = self._get_input("origin_table")
 
         new_df = dataframe.copy()
-        data = new_df.getData()
+        data = new_df.get_data()
         data = data[self.columns]
 
 
-        new_df.setData(data)
+        new_df.set_data(data)
 
         self._set_output("resulting_table", new_df)
 

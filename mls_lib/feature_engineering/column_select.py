@@ -11,10 +11,10 @@ class ColumnSelect(FeatureEngineeringStep):
     def execute(self):
         dataframe = self._get_input("input_table")
 
-        data = dataframe.getData()
+        data = dataframe.get_data()
         data = data[self.columns]
 
-        dataframe.setData(data)
+        dataframe.set_data(data)
 
         self._set_output("resulting_table", dataframe)
 

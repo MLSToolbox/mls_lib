@@ -34,9 +34,9 @@ class ColumnDrop(FeatureEngineeringStep):
             None
         """
         dataframe = self._get_input("origin")
-        data = dataframe.getData()
+        data = dataframe.get_data()
         data = data.drop(self.columns, axis=1)
-        dataframe.setData(data)
+        dataframe.set_data(data)
 
         self._set_output("resulting_table", dataframe)
         self.finish_execution()

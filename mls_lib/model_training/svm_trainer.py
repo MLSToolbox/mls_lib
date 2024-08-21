@@ -17,7 +17,7 @@ class SVMTrainer(ModelTrainingStep):
         features = self._get_input('features')
         truth = self._get_input('truth')
 
-        self.model.train(features.getData(), truth.getData())
+        self.model.train(features.get_data(), truth.get_data())
 
         self._set_output("model", self.model)
 

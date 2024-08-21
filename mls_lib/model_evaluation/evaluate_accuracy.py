@@ -12,8 +12,8 @@ class EvaluateAccuracy(ModelEvaluationStep):
 
     def execute(self):
         model = self._get_input('model')
-        x_test = self._get_input('features').getData()
-        y_test = self._get_input('truth').getData()
+        x_test = self._get_input('features').get_data()
+        y_test = self._get_input('truth').get_data()
 
         result = model.score(x_test, y_test)
 
