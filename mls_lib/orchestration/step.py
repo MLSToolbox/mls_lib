@@ -1,4 +1,7 @@
 """ Step """
+
+from mls_lib.objects.object import Object
+
 class Step:
     """
     Abstract Step
@@ -27,7 +30,7 @@ class Step:
     def is_finished(self):
         """ Check if the step is finished. """
         return self.finished
-    def _get_input(self, port):
+    def _get_input(self, port) -> Object:
         """ Get the input of the step. """
         origin, origin_port = self.inputs[port]
         return origin.get_output(origin_port)

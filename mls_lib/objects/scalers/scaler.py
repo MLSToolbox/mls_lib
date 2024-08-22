@@ -2,11 +2,13 @@
 
 import numpy as np
 
-from mls_lib.objects import Object
+from mls_lib.objects.data_frame import DataFrame
 
-class Scaler(Object):
+from .iscaler import IScaler
+
+class Scaler(IScaler):
     """ Scaler: Component that performs scaling. """
-    def __init__(self, scaler) -> None:
+    def __init__(self, scaler : IScaler) -> None:
         """
         Initializes the class instance with a given scaler and column.
 
@@ -19,9 +21,9 @@ class Scaler(Object):
         """
         super().__init__()
         self.scaler = scaler
-        self.column = None
+        self.columns = []
 
-    def fit_transform(self, data, column):
+    def fit_transform(self, data : DataFrame, columns : list):
         """
         Fits the scaler to the data and performs a transform operation on the specified column.
 
@@ -31,11 +33,12 @@ class Scaler(Object):
         Returns:
             None
         """
-        self.column = column
-        print(np.array(data.data[self.column]))
-        data.data[self.column] = self.scaler.fit_transform(
-            np.array(data.data[self.column]).reshape(-1,1))
-    def transform(self, data):
+        self.columns = columns
+        df = data.get_data()
+        df[self.columns] = self.scaler.fit_transform(np.array(df[self.columns]).reshape(-1,1))
+        data.set_data(df)
+
+    def transform(self, data : DataFrame):
         """
         Transforms the specified column of the input data using the scaler object.
 
@@ -46,6 +49,6 @@ class Scaler(Object):
             None
 
         """
-        data.data[self.column] = self.scaler.transform(
-            np.array(data.data[self.column]).reshape(-1,1))
-        
+        df = data.get_data()
+        df[self.columns] = self.scaler.transform(np.array(df[self.columns]).reshape(-1,1))
+        data.set_data(df)

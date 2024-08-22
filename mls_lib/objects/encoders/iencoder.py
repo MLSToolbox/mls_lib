@@ -1,11 +1,13 @@
-""" Encoder: Component that encodes categorical data. """
+""" IEncoder: Component that encodes categorical data. """
 
-from mls_lib.objects.encoders.iencoder import IEncoder
+import numpy as np
+
+from mls_lib.objects import Object
 from mls_lib.objects.data_frame import DataFrame
 
-class Encoder(IEncoder):
-    """ Encoder: Component that encodes categorical data. """
-    def __init__(self, encoder : IEncoder) -> None:
+class IEncoder(Object):
+    """ IEncoder: Component that encodes categorical data. """
+    def __init__(self) -> None:
         """
         Initializes the class instance with a given encoder.
 
@@ -15,11 +17,10 @@ class Encoder(IEncoder):
         Returns:
             None
         """
+        self.encoder = None
         super().__init__()
-        self.encoder = encoder
-        self.columns = []
 
-    def fit_transform(self, data : DataFrame, columns : list):
+    def fit_transform(self, data, columns : list):
         """
         Fits the encoder to the data and performs a transform operation on the data.
 
@@ -29,10 +30,9 @@ class Encoder(IEncoder):
         Returns:
             None
         """
-        self.columns = columns
-        self.encoder.fit_transform(data[self.columns])
+        pass
 
-    def transform(self, data):
+    def transform(self, data : DataFrame):
         """
         Transforms the input data using the encoder object.
 
@@ -42,4 +42,4 @@ class Encoder(IEncoder):
         Returns:
             None
         """
-        self.encoder.transform(data)
+        pass

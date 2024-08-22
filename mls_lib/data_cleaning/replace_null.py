@@ -1,17 +1,19 @@
 """ Replace Null : Replace Null Data Cleaning Step """
-from mls_lib.data_cleaning import DataCleaningStep
-from mls_lib.objects import Object
+
+from mls_lib.objects.data_frame import DataFrame
+
+from .data_cleaning_step import DataCleaningStep
 
 class ReplaceNull(DataCleaningStep):
     """ Replace Null : Replace Null Data Cleaning Step """
-    def __init__(self, strategy : str, column : str, data_in : Object):
+    def __init__(self, strategy : str, column : str, data_in : DataFrame) -> None:
         super().__init__(
             data_in = data_in
         )
         self.strategy = strategy
         self.column = column
 
-    def execute(self):
+    def execute(self) -> None:
         data = self._get_input("data_in").copy()
 
         df = data.get_data()
