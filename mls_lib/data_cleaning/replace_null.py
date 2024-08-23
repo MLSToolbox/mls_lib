@@ -28,7 +28,7 @@ class ReplaceNull(DataCleaningStep):
 
         self._set_output("out", data)
 
-        self.finish_execution()
+        self._finish_execution()
 
     def __use_avg(self, df):
         df[self.column] = df[self.column].fillna(df[self.column].mean())

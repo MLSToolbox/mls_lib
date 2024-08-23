@@ -23,4 +23,4 @@ class ScalerTrainer(FeatureEngineeringStep):
         self._set_output("scaler", self.scaler)
 
         self._set_output("out", new_data)
-        self.finish_execution()
+        self._finish_execution()

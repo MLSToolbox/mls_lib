@@ -20,4 +20,4 @@ class ReplaceValue(DataCleaningStep):
         data.set_data(df)
         self._set_output("out", data)
 
-        self.finish_execution()
+        self._finish_execution()

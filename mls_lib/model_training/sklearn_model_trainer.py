@@ -32,4 +32,4 @@ class SKLModelTrainer(ModelTrainingStep):
 
         self.outputs["model"] = model
 
-        self.finish_execution()
+        self._finish_execution()

@@ -25,4 +25,4 @@ class Join(FeatureEngineeringStep):
         new_df.set_data(df)
         self._set_output("out", new_df)
 
-        self.finish_execution()
+        self._finish_execution()

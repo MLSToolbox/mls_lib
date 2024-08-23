@@ -39,4 +39,4 @@ class ColumnDrop(FeatureEngineeringStep):
         dataframe.set_data(data)
 
         self._set_output("resulting_table", dataframe)
-        self.finish_execution()
+        self._finish_execution()

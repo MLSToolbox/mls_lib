@@ -14,4 +14,4 @@ class ExcelLoader(DataCollectionStep):
         data = pd.read_excel(self.path)
         df.set_data(data)
         self._set_output("resulting_table", df)
-        self.finish_execution()
+        self._finish_execution()

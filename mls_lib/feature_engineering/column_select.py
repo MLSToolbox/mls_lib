@@ -1,5 +1,9 @@
 """ ColumnSelect: Component that selects columns from the input table. """
+
+from mls_lib.objects.data_frame import DataFrame
+
 from . feature_engineering_step import FeatureEngineeringStep
+
 class ColumnSelect(FeatureEngineeringStep):
     """ ColumnSelect: Component that selects columns from the input table. """
     def __init__(self, input_table, columns):
@@ -14,8 +18,9 @@ class ColumnSelect(FeatureEngineeringStep):
         data = dataframe.get_data()
         data = data[self.columns]
 
-        dataframe.set_data(data)
+        new_df = DataFrame()
+        new_df.set_data(data)
 
-        self._set_output("resulting_table", dataframe)
+        self._set_output("resulting_table", new_df)
 
-        self.finish_execution()
+        self._finish_execution()

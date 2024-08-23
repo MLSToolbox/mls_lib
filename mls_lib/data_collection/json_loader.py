@@ -14,4 +14,4 @@ class JSONLoader(DataCollectionStep):
         data = pd.read_json(self.path)
         df.set_data(data)
         self._set_output("resulting_table", df)
-        self.finish_execution()
+        self._finish_execution()

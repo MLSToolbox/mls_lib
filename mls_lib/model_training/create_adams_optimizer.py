@@ -21,4 +21,4 @@ class CreateAdamsOptimizer(ModelTrainingStep):
     def execute(self):
         self._set_output("optimizer",
                          AdamsOptimizer(self.learning_rate, self.beta1, self.beta2, self.epsilon))
-        self.finish_execution()
+        self._finish_execution()

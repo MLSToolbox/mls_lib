@@ -23,5 +23,5 @@ class EvaluateAccuracy(ModelEvaluationStep):
 
         self._set_output("result", result)
 
-        self.finish_execution()
+        self._finish_execution()
         

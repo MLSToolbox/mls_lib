@@ -23,4 +23,4 @@ class EncoderTrainer(FeatureEngineeringStep):
         self._set_output("encoder", self.encoder)
 
         self._set_output("out", data)
-        self.finish_execution()
+        self._finish_execution()

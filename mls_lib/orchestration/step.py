@@ -31,13 +31,13 @@ class Step:
         """ Check if the step is finished. """
         return self.finished
     def _get_input(self, port) -> Object:
-        """ Get the input of the step. """
+        """ Get the input of the step by getting the output of the input step. """
         origin, origin_port = self.inputs[port]
         return origin.get_output(origin_port)
 
     def _set_output(self, port, value):
         """ Set the output of the step. """
         self.outputs[port] = value
-    def finish_execution(self):
+    def _finish_execution(self):
         """ Finish the execution of the step. """
         self.finished = True

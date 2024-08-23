@@ -8,7 +8,18 @@ class IScaler(Object):
     """ Abstract class that performs scaling. """
 
     def __init__(self):
-        pass
+        """
+        Initializes the class instance with a given scaler and column.
+
+        Args:
+            scaler (object): The scaler object to be used for scaling the data.
+            columns (list): A list containing the column name(s) to be scaled.
+
+        Returns:
+            None
+        """
+        self.scaler = None
+        super().__init__()
 
     def fit_transform(self, data : DataFrame, columns : list):
         """
@@ -20,7 +31,6 @@ class IScaler(Object):
         Returns:
             None
         """
-        pass
 
     def transform(self, data : DataFrame):
         """
@@ -32,5 +42,3 @@ class IScaler(Object):
         Returns:
             None
         """
-        pass
-    

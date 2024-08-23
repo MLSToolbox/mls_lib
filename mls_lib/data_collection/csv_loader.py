@@ -17,4 +17,4 @@ class CSVLoader(DataCollectionStep):
         data = pd.read_csv(self.path)
         df.set_data(data)
         self._set_output("out", df)
-        self.finish_execution()
+        self._finish_execution()

@@ -2,15 +2,16 @@
 
 from mls_lib.objects import Object
 class Model(Object):
-    """ Model: Component that trains and makes predictions. """    
-    def train(self):
-        """ Abstract method. """
-        print("Training model...")
-
-    def predict(self):
-        """ Abstract method. """
-        print("Predicting...")
-
-    def score(self):
-        """ Abstract method. """
-        print("Scoring...")
+    """ Model: Component that trains and makes predictions. """
+    def __init__(self, model) -> None:
+        super().__init__()
+        self.model = model
+    def train(self, features = None, truth = None):
+        """ Train the model. """
+        self.model.fit(features, truth)
+    def predict(self, features = None):
+        """ Make predictions. """
+        return self.model.predict(features)
+    def score(self, x_test = None, y_test = None):
+        """ Score the model. """
+        return self.model.score(x_test, y_test)

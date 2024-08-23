@@ -1,7 +1,5 @@
 """ IEncoder: Component that encodes categorical data. """
 
-import numpy as np
-
 from mls_lib.objects import Object
 from mls_lib.objects.data_frame import DataFrame
 
@@ -30,7 +28,6 @@ class IEncoder(Object):
         Returns:
             None
         """
-        pass
 
     def transform(self, data : DataFrame):
         """
@@ -42,4 +39,3 @@ class IEncoder(Object):
         Returns:
             None
         """
-        pass

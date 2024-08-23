@@ -20,4 +20,4 @@ class SelectColumns(FeatureEngineeringStep):
 
         self._set_output("resulting_table", new_df)
 
-        self.finish_execution()
+        self._finish_execution()
