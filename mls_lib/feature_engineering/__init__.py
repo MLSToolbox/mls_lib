@@ -6,3 +6,4 @@ from . select_columns import SelectColumns
 from . one_hot_encoder_trainer import OneHotEncoderTrainer
 from . label_encoder_trainer import LabelEncoderTrainer
 from . encoder_trainer import EncoderTrainer
+from . reuse_scaler import ReuseScaler
