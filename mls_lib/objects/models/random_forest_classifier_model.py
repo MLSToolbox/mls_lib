@@ -1,11 +1,11 @@
-""" SVMModel: Component that trains and makes predictions. """
-from sklearn.ensemble import RandomForestClassifier
+""" RandomForestClassifierModel: Component that trains and makes predictions. """
+from sklearn.ensemble import RandomForestClassifier as RFC
 from . model import Model
 class RandomForestClassifierModel(Model):
-    """ SVMModel: Component that trains and makes predictions. """
+    """ RandomForestClassifierModel: Component that trains and makes predictions. """
     def __init__(self, max_depth = None, n_estimators = 100) -> None:
         super().__init__(
-            model = RandomForestClassifier(
+            model = RFC(
                 max_depth = max_depth,
                 n_estimators = n_estimators
             )

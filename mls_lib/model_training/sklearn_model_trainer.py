@@ -1,35 +1,24 @@
 """ SKLModelTrainer: Component that trains and makes predictions. """
 
+from mls_lib.objects.data_frame import DataFrame
+from mls_lib.objects.models import Model
 from . model_training_step import ModelTrainingStep
 
 class SKLModelTrainer(ModelTrainingStep):
     """ SKLModelTrainer: Component that trains and makes predictions. """
-    def __init__(self, epochs : int, bach_size : int, features, truth, optimizer, model) -> None:
-        super().__init__()
-
-        self.epochs = epochs
-        self.bach_size = bach_size
-        self.features = features
-        self.truth = truth
-        self.optimizer = optimizer
+    def __init__(self, features : DataFrame, truth : DataFrame, model : Model) -> None:
+        super().__init__(
+            features = features,
+            truth = truth
+        )
+        self.step_category = "model_training"
         self.model = model
-
     def execute(self):
-        model_origin, port = self.model
-        model = model_origin.get(port)
-        optimizer_origin, port = self.optimizer
-        optimizer = optimizer_origin.get(port)
+        features = self._get_input('features')
+        truth = self._get_input('truth')
 
-        features_origin, port = self.features
-        features = features_origin.get(port)
+        self.model.train(features.get_data(), truth.get_data())
 
-        truth_origin, port = self.truth
-        truth = truth_origin.get(port)
-
-        model.fit(
-            features, truth, epochs=self.epochs,
-            batch_size=self.bach_size, optimizer=optimizer)
-
-        self.outputs["model"] = model
+        self._set_output("model", self.model)
 
         self._finish_execution()
