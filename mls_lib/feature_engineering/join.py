@@ -1,5 +1,5 @@
 """ Join: Component that joins two tables. """
-from output.src.mls_lib.objects.data_frame import DataFrame
+from mls_lib.objects.data_frame import DataFrame
 from . feature_engineering_step import FeatureEngineeringStep
 
 class Join(FeatureEngineeringStep):
