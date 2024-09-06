@@ -9,6 +9,7 @@ class CatBoostEncoderTrainer(EncoderTrainer):
     def __init__(self, columns, data):
         super().__init__(
             columns = columns,
-            data = data,
-            encoder = CategoricalBoostEncoder()
+            data = data
         )
+
+        self.encoder = CategoricalBoostEncoder()

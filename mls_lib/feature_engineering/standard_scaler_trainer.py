@@ -10,7 +10,7 @@ class StandardScalerTrainer(ScalerTrainer):
     def __init__(self, columns : list, data : DataFrame):
         super().__init__(
             columns = columns,
-            data = data,
-            scaler = SS()
+            data = data
         )
-    
+
+        self.scaler = SS()

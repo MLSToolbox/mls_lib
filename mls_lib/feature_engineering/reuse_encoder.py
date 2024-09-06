@@ -1,13 +1,12 @@
-""" Encoder Trainer """
+""" Reuse Encoder """
 
-from mls_lib.objects.data_frame import DataFrame
-from mls_lib.objects.encoders.encoder import IEncoder
+from mls_lib.orchestration.step import Step
 
 from . feature_engineering_step import FeatureEngineeringStep
 
-class EncoderTrainer(FeatureEngineeringStep):
-    """ Encoder Trainer """
-    def __init__(self, data : DataFrame, encoder : IEncoder) -> None:
+class ReuseEncoder(FeatureEngineeringStep):
+    """ Reuse Encoder """
+    def __init__(self, data : Step, encoder : Step) -> None:
         super().__init__(
             data = data,
             encoder = encoder

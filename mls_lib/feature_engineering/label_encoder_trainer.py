@@ -9,6 +9,8 @@ class LabelEncoderTrainer(EncoderTrainer):
     def __init__(self, columns, data):
         super().__init__(
             columns = columns,
-            data = data,
-            encoder = LabelEncoder())
+            data = data
+        )
+
+        self.encoder = LabelEncoder()
     

@@ -1,12 +1,12 @@
 """ Replace Null : Replace Null Data Cleaning Step """
 
-from mls_lib.objects.data_frame import DataFrame
+from mls_lib.orchestration import Step
 
 from .data_cleaning_step import DataCleaningStep
 
 class ReplaceNull(DataCleaningStep):
     """ Replace Null : Replace Null Data Cleaning Step """
-    def __init__(self, strategy : str, column : str, data_in : DataFrame) -> None:
+    def __init__(self, strategy : str, column : str, data_in : Step) -> None:
         super().__init__(
             data_in = data_in
         )

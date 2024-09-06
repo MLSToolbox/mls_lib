@@ -1,12 +1,12 @@
 """ Replace Value : Replace Value Data Cleaning Step """
 
-from mls_lib.objects.data_frame import DataFrame
+from mls_lib.orchestration import Step
 
 from .data_cleaning_step import DataCleaningStep
 
 class ReplaceValue(DataCleaningStep):
     """ Replace Value : Replace Value Data Cleaning Step """
-    def __init__(self, column : str, value_map : dict, data_in : DataFrame) -> None:
+    def __init__(self, column : str, value_map : dict, data_in : Step) -> None:
         super().__init__(
             data_in = data_in
         )

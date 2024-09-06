@@ -18,7 +18,7 @@ class Step:
         """ Get the output of the step. """
         return self.outputs[port]
     def _get_input_step(self, port):
-        """ Get the input step of the step. """
+        """ Get the step that is connected to the input port. """
         return self.inputs[port]
     def is_ready(self):
         """ Check if the step is ready. """
@@ -31,7 +31,7 @@ class Step:
         """ Check if the step is finished. """
         return self.finished
     def _get_input(self, port) -> Object:
-        """ Get the input of the step by getting the output of the input step. """
+        """ Get the output of the step connected to this input port. """
         origin, origin_port = self.inputs[port]
         return origin.get_output(origin_port)
 

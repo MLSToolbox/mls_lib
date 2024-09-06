@@ -1,13 +1,13 @@
 """ Scaler Trainer """
 
 from mls_lib.objects.data_frame import DataFrame
-from mls_lib.objects.scalers.iscaler import IScaler
+from mls_lib.orchestration.step import Step
 
 from . feature_engineering_step import FeatureEngineeringStep
 
 class ReuseScaler(FeatureEngineeringStep):
     """ Scaler Trainer """
-    def __init__(self, data : DataFrame, scaler : IScaler) -> None:
+    def __init__(self, data : Step, scaler : Step) -> None:
         super().__init__(
             data = data,
             scaler = scaler

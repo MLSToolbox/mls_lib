@@ -1,16 +1,16 @@
 """ Encoder Trainer """
 
-from mls_lib.objects.data_frame import DataFrame
+from mls_lib.orchestration.step import Step
 from mls_lib.objects.encoders.encoder import IEncoder
 
 from . feature_engineering_step import FeatureEngineeringStep
 
 class EncoderTrainer(FeatureEngineeringStep):
     """ Encoder Trainer """
-    def __init__(self, columns : list, data : DataFrame, encoder : IEncoder) -> None:
+    def __init__(self, columns : list, data : Step) -> None:
         super().__init__(data = data)
         self.columns = columns
-        self.encoder = encoder
+        self.encoder = IEncoder()
 
     def execute(self):
         data = self._get_input("data")

@@ -1,13 +1,11 @@
 """ Accuracy evaluation step. """
 
-from mls_lib.objects.models.model import Model
-from mls_lib.objects.data_frame import DataFrame
-
+from mls_lib.orchestration.step import Step
 from . model_evaluation_step import ModelEvaluationStep
 
 class EvaluateAccuracy(ModelEvaluationStep):
     """ Accuracy evaluation step. """
-    def __init__(self, features : DataFrame, truth : DataFrame, model : Model) -> None:
+    def __init__(self, features : Step, truth : Step, model : Step) -> None:
         super().__init__(
             features = features,
             truth = truth,

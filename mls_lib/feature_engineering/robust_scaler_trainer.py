@@ -1,16 +1,17 @@
 """ RobustScalerTrainer: Component that trains a robust scaler. """
 
 from mls_lib.objects.scalers import RobustScaler as RS
-from mls_lib.objects.data_frame import DataFrame
+from mls_lib.orchestration.step import Step
 
 from . scaler_trainer import ScalerTrainer
 
 class RobustScalerTrainer(ScalerTrainer):
     """ RobustScalerTrainer: Component that trains a robust scaler. """
-    def __init__(self, columns : list, data : DataFrame):
+    def __init__(self, columns : list, data : Step):
         super().__init__(
             columns = columns,
-            data = data,
-            scaler = RS()
+            data = data
         )
+
+        self.scaler = RS()
     
