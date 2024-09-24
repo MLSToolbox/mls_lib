@@ -1,9 +1,9 @@
 """ Excel Loader """
 import pandas as pd
 from mls_lib.objects.data_frame import DataFrame
-from .data_collection_step import DataCollectionStep
+from mls_lib.orchestration.step import Step
 
-class ExcelLoader(DataCollectionStep):
+class ExcelLoader(Step):
     """ Excel Loader """
     def __init__(self, path : str):
         super().__init__()

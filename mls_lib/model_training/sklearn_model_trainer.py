@@ -2,23 +2,19 @@
 
 from mls_lib.orchestration.step import Step
 from mls_lib.objects.models import Model
-from . model_training_step import ModelTrainingStep
+from mls_lib.objects.data_frame import DataFrame
 
-class SKLModelTrainer(ModelTrainingStep):
+class SKLModelTrainer(Step):
     """ SKLModelTrainer: Component that trains and makes predictions. """
-    def __init__(self, features : Step, truth : Step, model : Model) -> None:
-        super().__init__(
-            features = features,
-            truth = truth
-        )
-        self.step_category = "model_training"
-        self.model = model
+    def __init__(self) -> None:
+        super().__init__()
+        self.features = DataFrame()
+        self.truth = DataFrame()
+        self.model = Model()
+    def set_data(self, features : DataFrame, truth : DataFrame):
+        self.features = features
+        self.truth = truth
     def execute(self):
-        features = self._get_input('features')
-        truth = self._get_input('truth')
-
-        self.model.train(features.get_data(), truth.get_data())
+        self.model.train(self.features.get_data(), self.truth.get_data())
 
         self._set_output("model", self.model)
-
-        self._finish_execution()

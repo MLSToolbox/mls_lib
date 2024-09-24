@@ -1,28 +1,28 @@
 """ Reuse Encoder """
 
 from mls_lib.orchestration.step import Step
+from mls_lib.objects.data_frame import DataFrame
+from mls_lib.objects.encoders.iencoder import IEncoder
 
-from . feature_engineering_step import FeatureEngineeringStep
-
-class ReuseEncoder(FeatureEngineeringStep):
+class ReuseEncoder(Step):
     """ Reuse Encoder """
-    def __init__(self, data : Step, encoder : Step) -> None:
-        super().__init__(
-            data = data,
-            encoder = encoder
-        )
+    def __init__(self) -> None:
+        super().__init__()
+
+        self.data = DataFrame()
+        self.encoder = IEncoder()
+    
+    def set_data(self, data : DataFrame, encoder : IEncoder) -> None:
+        self.data = data
+        self.encoder = encoder
 
     def execute(self):
-        data = self._get_input("data")
-        encoder = self._get_input("encoder")
+        df = self.data.get_data()
 
-        df = data.get_data()
+        self.encoder.transform(df)
 
-        encoder.transform(df)
+        self.data.set_data(df)
 
-        data.set_data(df)
+        self._set_output("encoder", self.encoder)
 
-        self._set_output("encoder", encoder)
-
-        self._set_output("out", data)
-        self._finish_execution()
+        self._set_output("out", self.data)

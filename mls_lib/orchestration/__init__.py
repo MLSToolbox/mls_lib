@@ -1,3 +1,3 @@
 """ Orchestration Components """
-from .orchestrator import Orchestrator
+from .orchestrator import Pipeline
 from .step import Step

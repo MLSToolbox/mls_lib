@@ -2,23 +2,24 @@
 
 from sklearn.model_selection import train_test_split
 
+from mls_lib.orchestration.step import Step
 from mls_lib.objects.data_frame import DataFrame
-from . model_training_step import ModelTrainingStep
 
-class TrainTestSplitter(ModelTrainingStep):
+class TrainTestSplitter(Step):
     """ TrainTestSplitter: Component that trains and makes predictions. """
-    def __init__(self, train_percentage : float, features, truth):
-        super().__init__(
-            features = features,
-            truth = truth
-        )
+    def __init__(self, train_percentage : float):
+        super().__init__()
+        self.features = DataFrame()
+        self.truth = DataFrame()
         self.train_percentage = train_percentage
-    def execute(self):
-        features_dataframe= self._get_input('features')
-        features_data = features_dataframe.get_data()
+    
+    def set_data(self, features : DataFrame, truth : DataFrame) -> None:
+        self.features = features
+        self.truth = truth
 
-        truth_dataframe = self._get_input('truth')
-        truth_data = truth_dataframe.get_data()
+    def execute(self):
+        features_data = self.features.get_data()
+        truth_data = self.truth.get_data()
 
         x_train, x_test, y_train, y_test = train_test_split(
             features_data,
@@ -37,5 +38,3 @@ class TrainTestSplitter(ModelTrainingStep):
         self._set_output("truth_train", y_train_dataframe)
         self._set_output("features_test", x_test_dataframe)
         self._set_output("truth_test", y_test_dataframe)
-
-        self._finish_execution()

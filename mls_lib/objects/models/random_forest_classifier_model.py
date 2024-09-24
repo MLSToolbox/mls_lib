@@ -4,10 +4,9 @@ from . model import Model
 class RandomForestClassifierModel(Model):
     """ RandomForestClassifierModel: Component that trains and makes predictions. """
     def __init__(self, max_depth = None, n_estimators = 100) -> None:
-        super().__init__(
-            model = RFC(
-                max_depth = max_depth,
-                n_estimators = n_estimators
-            )
+        super().__init__()
+        self.model = RFC(
+            max_depth = max_depth,
+            n_estimators = n_estimators
         )
     

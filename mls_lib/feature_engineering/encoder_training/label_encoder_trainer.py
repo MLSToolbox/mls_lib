@@ -2,15 +2,11 @@
 
 from mls_lib.objects.encoders import LabelEncoder
 
-from . encoder_trainer import EncoderTrainer
+from .encoder_trainer import EncoderTrainer
 
 class LabelEncoderTrainer(EncoderTrainer):
     """ LabelEncoderTrainer: Component that trains a label encoder. """
-    def __init__(self, columns, data):
-        super().__init__(
-            columns = columns,
-            data = data
-        )
-
+    def __init__(self, columns : list):
+        super().__init__(columns)
         self.encoder = LabelEncoder()
     
