@@ -12,8 +12,7 @@ class EncoderTrainer(Step):
         self.data = DataFrame()
         self.encoder = IEncoder()
     
-    def set_data(self, columns : list, data : DataFrame) -> None:
-        self.columns = columns
+    def set_data(self, data : DataFrame) -> None:
         self.data = data
 
     def execute(self):

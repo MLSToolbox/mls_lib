@@ -7,10 +7,10 @@ class ColumnSelect(Step):
     """ ColumnSelect: Component that selects columns from the input table. """
     def __init__(self, columns : list) -> None:
         super().__init__()
-        self.input_table = DataFrame()
+        self.origin_table = DataFrame()
         self.columns = columns
 
-    def set_data(self, input_table : DataFrame) -> None:
+    def set_data(self, origin_table : DataFrame) -> None:
         """
         Sets the input table to be used for column selection.
 
@@ -20,10 +20,10 @@ class ColumnSelect(Step):
         Returns:
             None
         """
-        self.input_table = input_table
+        self.origin_table = origin_table
 
     def execute(self) -> None:
-        data = self.input_table.get_data()
+        data = self.origin_table.get_data()
         data = data[self.columns]
 
         new_df = DataFrame()

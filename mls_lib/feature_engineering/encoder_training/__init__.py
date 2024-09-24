@@ -2,5 +2,5 @@
 
 from .label_encoder_trainer import LabelEncoderTrainer
 from .one_hot_encoder_trainer import OneHotEncoderTrainer
-from .categoric_boost_encoder_train import CategoricBoostEncoderTrainer
+from .categoric_boost_encoder_train import CatBoostEncoderTrainer
 from .encoder_trainer import EncoderTrainer

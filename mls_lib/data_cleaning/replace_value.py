@@ -5,7 +5,7 @@ from mls_lib.objects.data_frame import DataFrame
 
 class ReplaceValue(Step):
     """ Replace Value : Replace Value Data Cleaning Step """
-    def __init__(self, column : str, value_map : dict, data_in : Step) -> None:
+    def __init__(self, column : str, value_map : dict) -> None:
         super().__init__()
         self.column = column
         self.value_map = value_map

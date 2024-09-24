@@ -28,21 +28,27 @@ class Stage(Step):
     def execute(self):
         """ Executes all the steps in the stage. """
         step_keys = list(self.steps.keys())
-        for step_key in step_keys:
-            if self.__is_step_ready(step_key):
-                step, inputs = self.steps[step_key]
-                data = {}
-                for port, step_port in inputs.items():
-                    input_step, input_port = step_port
-                    data[port] = input_step.get_output(input_port)
-                if len(data) > 0:
-                    step.set_data(**data)
-                step.execute()
-                step.finish_execution()
+        finish_count = 0
+        while finish_count < len(self.steps):
+            for step_key in step_keys:
+                if self.__is_step_ready(step_key):
+                    step, inputs = self.steps[step_key]
+                    data = {}
+                    for port, step_port in inputs.items():
+                        input_step, input_port = step_port
+                        data[port] = input_step.get_output(input_port)
+                    if len(data) > 0:
+                        step.set_data(**data)
+                    step.execute()
+                    step.finish_execution()
+                    finish_count += 1
+        self.finish_execution()
     
     def __is_step_ready(self, step_key):
         """ Checks if the step is ready. """
-        _, inputs = self.steps[step_key]
+        step, inputs = self.steps[step_key]
+        if step.is_finished():
+            return False
         for _, input_step_port in inputs.items():
             input_step, _ = input_step_port
             if not input_step.is_finished():
