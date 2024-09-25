@@ -2,7 +2,7 @@
 
 from mls_lib.orchestration import Step
 from mls_lib.objects.data_frame import DataFrame
-class ReplaceNull(Step):
+class ReplaceNullAverage(Step):
     """ Replace Null : Replace Null Data Cleaning Step """
     def __init__(self, strategy : str, column : str) -> None:
         super().__init__(
@@ -17,22 +17,9 @@ class ReplaceNull(Step):
     def execute(self) -> None:
 
         df = self.data_in.get_data()
-        if self.strategy == 'average':
-            self.__use_avg(df)
-        elif self.strategy == 'zero':
-            self.__use_zero(df)
-        elif self.strategy == 'mode':
-            self.__use_mode(df)
+
+        df[self.column] = df[self.column].fillna(df[self.column].mean())
 
         self.data_in.set_data(df)
 
         self._set_output("out", self.data_in)
-
-    def __use_avg(self, df):
-        df[self.column] = df[self.column].fillna(df[self.column].mean())
-
-    def __use_mode(self, df):
-        df[self.column] = df[self.column].fillna(df[self.column].mode()[0])
-
-    def __use_zero(self, df):
-        df[self.column] = df[self.column].fillna(0)
