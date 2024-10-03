@@ -1,9 +1,9 @@
 """ Excel Loader """
 import pandas as pd
 from mls_lib.objects.data_frame import DataFrame
-from mls_lib.orchestration.step import Step
+from mls_lib.orchestration.task import Task
 
-class ExcelLoader(Step):
+class ExcelLoader(Task):
     """ Excel Loader """
     def __init__(self, path : str):
         super().__init__()
@@ -14,4 +14,3 @@ class ExcelLoader(Step):
         data = pd.read_excel(self.path)
         df.set_data(data)
         self._set_output("resulting_table", df)
-        self._finish_execution()

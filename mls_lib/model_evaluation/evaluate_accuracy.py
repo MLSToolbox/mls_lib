@@ -1,9 +1,9 @@
 """ Accuracy evaluation step. """
 
-from mls_lib.orchestration.step import Step
+from mls_lib.orchestration.task import Task
 from mls_lib.objects.data_frame import DataFrame
 from mls_lib.objects.models.model import Model
-class EvaluateAccuracy(Step):
+class EvaluateAccuracy(Task):
     """ Accuracy evaluation step. """
     def __init__(self) -> None:
         super().__init__()

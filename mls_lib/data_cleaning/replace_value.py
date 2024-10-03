@@ -1,9 +1,9 @@
 """ Replace Value : Replace Value Data Cleaning Step """
 
-from mls_lib.orchestration import Step
+from mls_lib.orchestration import Task
 from mls_lib.objects.data_frame import DataFrame
 
-class ReplaceValue(Step):
+class ReplaceValue(Task):
     """ Replace Value : Replace Value Data Cleaning Step """
     def __init__(self, column : str, value_map : dict) -> None:
         super().__init__()

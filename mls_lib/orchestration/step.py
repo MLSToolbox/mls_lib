@@ -13,11 +13,9 @@ class Step:
     def get_output(self, port):
         """ Get the output of the step. """
         return self.outputs[port]
-
     def is_finished(self):
         """ Check if the step is finished. """
         return self.finished
-
     def _set_output(self, port, value):
         """ Set the output of the step. """
         self.outputs[port] = value

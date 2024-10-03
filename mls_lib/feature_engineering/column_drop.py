@@ -1,9 +1,9 @@
 """ ColumnDrop: Component that drops columns from the input table. """
 
 from mls_lib.objects.data_frame import DataFrame
-from mls_lib.orchestration.step import Step
+from mls_lib.orchestration.task import Task
 
-class ColumnDrop(Step):
+class ColumnDrop(Task):
     """
         ColumnDrop: Drops columns from the input table when executed.
     """

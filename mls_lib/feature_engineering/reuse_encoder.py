@@ -1,10 +1,10 @@
 """ Reuse Encoder """
 
-from mls_lib.orchestration.step import Step
+from mls_lib.orchestration.task import Task
 from mls_lib.objects.data_frame import DataFrame
 from mls_lib.objects.encoders.iencoder import IEncoder
 
-class ReuseEncoder(Step):
+class ReuseEncoder(Task):
     """ Reuse Encoder """
     def __init__(self) -> None:
         super().__init__()

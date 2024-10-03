@@ -1,9 +1,9 @@
 """ ColumnSelect: Component that selects columns from the input table. """
 
 from mls_lib.objects.data_frame import DataFrame
-from mls_lib.orchestration.step import Step
+from mls_lib.orchestration.task import Task
 
-class ColumnSelect(Step):
+class ColumnSelect(Task):
     """ ColumnSelect: Component that selects columns from the input table. """
     def __init__(self, columns : list) -> None:
         super().__init__()

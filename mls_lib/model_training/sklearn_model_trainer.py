@@ -1,10 +1,10 @@
 """ SKLModelTrainer: Component that trains and makes predictions. """
 
-from mls_lib.orchestration.step import Step
+from mls_lib.orchestration.task import Task
 from mls_lib.objects.models import Model
 from mls_lib.objects.data_frame import DataFrame
 
-class SKLModelTrainer(Step):
+class SKLModelTrainer(Task):
     """ SKLModelTrainer: Component that trains and makes predictions. """
     def __init__(self) -> None:
         super().__init__()

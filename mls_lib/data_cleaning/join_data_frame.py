@@ -1,8 +1,8 @@
 """ Join: Component that joins two tables. """
-from mls_lib.orchestration import Step
+from mls_lib.orchestration.task import Task
 from mls_lib.objects.data_frame import DataFrame
 
-class JoinDataFrame(Step):
+class JoinDataFrame(Task):
     """ Join: Component that joins two tables. """
     def __init__(self, how : str, index : list) -> None:
         super().__init__(

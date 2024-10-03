@@ -1,10 +1,10 @@
 """ Scaler Trainer """
 
 from mls_lib.objects.data_frame import DataFrame
-from mls_lib.orchestration.step import Step
+from mls_lib.orchestration.task import Task
 from mls_lib.objects.scalers.iscaler import IScaler
 
-class ScalerTrainer(Step):
+class ScalerTrainer(Task):
     """ Scaler Trainer """
     def __init__(self, columns : list) -> None:
         super().__init__()

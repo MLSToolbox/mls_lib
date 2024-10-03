@@ -1,8 +1,8 @@
 """ CreateAdamsOptimizer: Component that trains and makes predictions. """
 
 from mls_lib.objects.optimizers.adams_optimizer import AdamsOptimizer
-from mls_lib.orchestration.step import Step
-class CreateAdamsOptimizer(Step):
+from mls_lib.orchestration.task import Task
+class CreateAdamsOptimizer(Task):
     """ CreateAdamsOptimizer: Component that trains and makes predictions. """
     def __init__(self, optimizer_parameters = None): #learning_rate, beta1, beta2, epsilon) -> None:
         super().__init__()

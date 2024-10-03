@@ -1,16 +1,15 @@
 """ Scaler Trainer """
 
-from mls_lib.orchestration.step import Step
+from mls_lib.orchestration.task import Task
 from mls_lib.objects.data_frame import DataFrame
 from mls_lib.objects.scalers.iscaler import IScaler
 
-class ReuseScaler(Step):
+class ReuseScaler(Task):
     """ Scaler Trainer """
     def __init__(self) -> None:
         super().__init__()
         self.data = DataFrame()
         self.scaler = IScaler()
-
     def set_data(self, data : DataFrame, scaler : IScaler) -> None:
         self.data = data
         self.scaler = scaler

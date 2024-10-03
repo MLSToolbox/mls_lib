@@ -2,10 +2,10 @@
 
 from sklearn.model_selection import train_test_split
 
-from mls_lib.orchestration.step import Step
+from mls_lib.orchestration.task import Task
 from mls_lib.objects.data_frame import DataFrame
 
-class TrainTestSplitter(Step):
+class TrainTestSplitter(Task):
     """ TrainTestSplitter: Component that trains and makes predictions. """
     def __init__(self, train_percentage : float):
         super().__init__()

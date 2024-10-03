@@ -1,10 +1,10 @@
 """ Encoder Trainer """
 
-from mls_lib.orchestration.step import Step
+from mls_lib.orchestration.task import Task
 from mls_lib.objects.encoders.encoder import IEncoder
 from mls_lib.objects.data_frame import DataFrame
 
-class EncoderTrainer(Step):
+class EncoderTrainer(Task):
     """ Encoder Trainer """
     def __init__(self, columns : list) -> None:
         super().__init__()
