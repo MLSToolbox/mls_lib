@@ -14,7 +14,6 @@ class Stage(Step):
         """ Adds a step to the stage. """
         step_key = str(uuid.uuid4())
         self.steps[step_key] = (step, inputs)
-    
     def add_output(self, port, step_port):
         """ Adds an output to the stage. """
         self.outputs[port] = step_port
@@ -43,7 +42,6 @@ class Stage(Step):
                 step.finish_execution()
                 finish_count += 1
         self.finish_execution()
-    
     def __is_step_ready(self, step_key):
         """ Checks if the step is ready. """
         step, inputs = self.steps[step_key]
@@ -54,3 +52,4 @@ class Stage(Step):
             if not input_step.is_finished():
                 return False
         return True
+    
