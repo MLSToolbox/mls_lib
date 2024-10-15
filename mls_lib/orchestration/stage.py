@@ -5,11 +5,15 @@ from mls_lib.orchestration.task import Step
 class Stage(Step):
     """ Represents a stage in the pipeline. """
 
-    def __init__(self):
+    def __init__(self, name : str):
         """ Initializes a new instance of the class. """
         super().__init__()
+        self.name = name
         self.tasks = {}
-
+    
+    def __repr__(self):
+        """ Returns a string representation of the stage. """
+        return self.name
     def add_task(self, task, **inputs):
         """ Adds a task to the stage. """
         task_key = str(uuid.uuid4())
