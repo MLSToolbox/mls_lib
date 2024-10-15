@@ -5,7 +5,7 @@ class Pipeline:
         """Initializes a new instance of the Pipeline class.
 
         This constructor initializes a new instance of the Pipeline class
-        and sets the `tasks` field to an empty list.
+        and sets the `steps` field to an empty list.
 
         Parameters:
             None
@@ -14,25 +14,25 @@ class Pipeline:
             None
         """
         super().__init__()
-        self.tasks = []
-    def add(self, task):
-        """Adds a task to the pipeline.
+        self.steps = []
+    def add(self, step):
+        """Adds a step to the pipeline.
 
-        This function adds a task to the `tasks` list 
+        This function adds a step to the `steps` list 
         of the `Pipeline` class.
 
         Parameters:
-            task (Task): The task to add to the pipeline.
+            step (Step): The step to add to the pipeline.
 
         Returns:
             None
         """
-        self.tasks.append(task)
+        self.steps.append(step)
 
     def clear(self):
-        """Clear the tasks in the pipeline.
+        """Clear the  in the pipeline.
 
-        This function clears the `tasks` attribute of 
+        This function clears the `steps` attribute of 
         the `Pipeline` class by empting it.
 
         Parameters:
@@ -41,13 +41,13 @@ class Pipeline:
         Returns:
             None
         """
-        self.tasks = []
+        self.steps = []
 
     def execute(self):
-        """Execute all the tasks in the pipeline.
+        """Execute all the steps in the pipeline.
 
-        This method iterates over the `tasks` list and calls the
-        `execute` method of each task in the `tasks` list.
+        This method iterates over the `steps` list and calls the
+        `execute` method of each step in the `steps` list.
 
         Parameters:
             None
@@ -55,5 +55,5 @@ class Pipeline:
         Returns:
             None
         """
-        for task in self.tasks:
-            task.execute()
+        for step in self.steps:
+            step.execute()
