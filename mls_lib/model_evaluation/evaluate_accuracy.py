@@ -19,7 +19,7 @@ class EvaluateAccuracy(Task):
 
     def execute(self) -> None:
 
-        result = self.model.score(self.features, self.truth)
+        result = self.model.score(self.features.get_data(), self.truth.get_data())
 
         self._set_output("result", result)
         
