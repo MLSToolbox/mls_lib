@@ -35,7 +35,7 @@ class Scaler(IScaler):
         """
         self.columns = columns
         df = data.get_data()
-        df[self.columns] = self.scaler.fit_transform(np.array(df[self.columns]).reshape(-1,1))
+        df[self.columns] = self.scaler.fit_transform(df[self.columns].values)
         data.set_data(df)
 
     def transform(self, data : DataFrame):
