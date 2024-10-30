@@ -10,6 +10,7 @@ class Stage(Step):
         super().__init__()
         self.name = name
         self.tasks = {}
+        self.inputs = {}
     
     def __repr__(self):
         """ Returns a string representation of the stage. """
@@ -23,12 +24,22 @@ class Stage(Step):
         self.outputs[port] = task_port
 
     def get_output(self, port):
+        """ Get false output (output of the previous stages) for the tasks in the stage. """
+        return self.inputs[port]
+        
+    def get_stage_output(self, port):
         """ Get the output of the stage. """
         output_task, output_port = self.outputs[port]
         return output_task.get_output(output_port)
+    
+    def set_data(self, **kwargs):
+        """ Sets the data of the stage. """
+        for port, value in kwargs.items():
+            self.inputs[port] = value
 
     def execute(self):
         """ Executes all the tasks in the stage. """
+        print("Executing Stage: " + self.name)
         task_keys = list(self.tasks.keys())
         finish_count = 0
         while finish_count < len(self.tasks):
@@ -53,6 +64,8 @@ class Stage(Step):
             return False
         for _, input_task_port in inputs.items():
             input_task, _ = input_task_port
+            if input_task is self:
+                continue
             if not input_task.is_finished():
                 return False
         return True

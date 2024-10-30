@@ -47,6 +47,8 @@ class ColumnDrop(Task):
         """
         data = self.origin_table.get_data()
         data = data.drop(self.columns, axis=1)
-        self.origin_table.set_data(data)
 
-        self._set_output("resulting_table", self.origin_table)
+        new_df = DataFrame()
+        new_df.set_data(data)
+
+        self._set_output("resulting_table", new_df)
