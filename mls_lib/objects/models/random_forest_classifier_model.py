@@ -6,7 +6,7 @@ class RandomForestClassifierModel(Model):
     def __init__(self, max_depth = None, n_estimators = 100) -> None:
         super().__init__()
         self.model = RFC(
-            max_depth = max_depth,
-            n_estimators = n_estimators
+            max_depth = int(max_depth),
+            n_estimators = int(n_estimators)
         )
     
