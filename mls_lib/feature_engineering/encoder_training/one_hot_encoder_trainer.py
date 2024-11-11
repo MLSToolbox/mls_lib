@@ -8,5 +8,4 @@ class OneHotEncoderTrainer(EncoderTrainer):
     def __init__(self, columns):
         super().__init__(columns)
 
-        self.encoder = OneHotEncoder()
-    
+        self.encoder = OneHotEncoder(columns)

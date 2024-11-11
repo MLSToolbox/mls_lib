@@ -30,8 +30,7 @@ class Encoder(IEncoder):
             None
         """
         self.columns = columns
-        self.encoder.fit_transform(data[self.columns])
-
+        return self.encoder.fit_transform(data, self.columns)
     def transform(self, data):
         """
         Transforms the input data using the encoder object.
@@ -42,4 +41,5 @@ class Encoder(IEncoder):
         Returns:
             None
         """
-        self.encoder.transform(data)
+        return self.encoder.transform(data, self.columns)
+        

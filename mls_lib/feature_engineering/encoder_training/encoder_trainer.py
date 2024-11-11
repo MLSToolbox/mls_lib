@@ -18,10 +18,11 @@ class EncoderTrainer(Task):
     def execute(self):
         df = self.data.get_data()
 
-        self.encoder.fit_transform(df, self.columns)
+        new_data = self.encoder.fit_transform(df, self.columns)
 
-        self.data.set_data(df)
+        new_df = DataFrame()
+        new_df.set_data(new_data)
 
         self._set_output("encoder", self.encoder)
 
-        self._set_output("out", self.data)
+        self._set_output("out", new_df)
