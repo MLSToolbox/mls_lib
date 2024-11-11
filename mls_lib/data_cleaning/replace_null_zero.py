@@ -1,9 +1,9 @@
-""" Replace Null : Replace Null Data Cleaning Step """
+""" Replace Null Zero: Replaces null values of the given column with 0 """
 
 from mls_lib.orchestration import Task
 from mls_lib.objects.data_frame import DataFrame
 class ReplaceNullZero(Task):
-    """ Replace Null : Replace Null Data Cleaning Step """
+    """ Replace Null Zero: Replaces null values of the given column with 0 """
     def __init__(self, column : str) -> None:
         super().__init__(
         )
