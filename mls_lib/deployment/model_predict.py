@@ -9,7 +9,7 @@ class ModelPredict(Task):
         super().__init__()
         self.model = Model()
         self.features = DataFrame()
-        self.predictions = DataFrame()
+        self.prediction = DataFrame()
     
     def set_data(self, model : Model, features : DataFrame) -> None:
         self.model = model
@@ -18,6 +18,6 @@ class ModelPredict(Task):
     def execute(self):
         data = self.model.predict(self.features.get_data())
         
-        self.predictions.set_data(data)
+        self.prediction.from_np_array(data)
 
-        self._set_output("predictions", self.predictions)
+        self._set_output("prediction", self.prediction)

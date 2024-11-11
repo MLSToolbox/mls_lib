@@ -19,10 +19,9 @@ class ReuseEncoder(Task):
     def execute(self):
         df = self.data.get_data()
 
-        self.encoder.transform(df)
+        data = self.encoder.transform(df)
+        
+        new_df = DataFrame()
+        new_df.set_data(data)
 
-        self.data.set_data(df)
-
-        self._set_output("encoder", self.encoder)
-
-        self._set_output("out", self.data)
+        self._set_output("out", new_df)

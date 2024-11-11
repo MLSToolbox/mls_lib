@@ -4,4 +4,3 @@ from .train_test_splitter import TrainTestSplitter
 from .random_forest_tree_classifier_trainer import RandomForestTreeClassifierTrainer
 from .create_adams_optimizer import CreateAdamsOptimizer
 from .svm_trainer import SVMTrainer
-from .random_forest_regressor_trainer import RandomForestRegressorTrainer

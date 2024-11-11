@@ -13,4 +13,4 @@ class ToCSV(Task):
     
     def execute(self):
         data = self.dataframe.get_data()
-        data.to_csv(self.path)
+        data.to_csv(self.path, index=False)

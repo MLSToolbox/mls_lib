@@ -11,6 +11,9 @@ class DataFrame(Object):
         """ Returns the data. """
         return deepcopy(self.data)
 
-    def set_data(self, data):
+    def set_data(self, data : pd.DataFrame):
         """ Sets the data. """
         self.data = deepcopy(data)
+
+    def from_np_array(self, data):
+        self.data = pd.DataFrame(data)
