@@ -1,13 +1,11 @@
-""" Replace Null : Replace Null Data Cleaning Step """
+""" Replace Null Average : Replaces all null values of the given column with the average of the column """
 
 from mls_lib.orchestration import Task
 from mls_lib.objects.data_frame import DataFrame
 class ReplaceNullAverage(Task):
-    """ Replace Null : Replace Null Data Cleaning Step """
-    def __init__(self, strategy : str, column : str) -> None:
-        super().__init__(
-        )
-        self.strategy = strategy
+    """ Replace Null Average : Replaces all null values of the given column with the average of the column """
+    def __init__(self, column : str) -> None:
+        super().__init__()
         self.column = column
         self.data_in = DataFrame()
 
