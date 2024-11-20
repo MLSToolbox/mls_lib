@@ -22,7 +22,7 @@ class Stage(Step):
         self.outputs[port] = task_port
     def get_output(self, port):
         """ Get false output (output of the previous stages) for the tasks in the stage. """
-        return self.inputs[port]  
+        return self.inputs[port]
     def get_stage_output(self, port):
         """ Get the output of the stage. """
         output_task, output_port = self.outputs[port]
@@ -63,4 +63,3 @@ class Stage(Step):
             if not input_task.is_finished():
                 return False
         return True
-    

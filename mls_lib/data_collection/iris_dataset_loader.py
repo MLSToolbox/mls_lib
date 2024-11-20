@@ -6,10 +6,6 @@ from mls_lib.objects.data_frame import DataFrame
 
 class IrisDatasetLoader(Task):
     """ Iris Dataset Loader """
-
-    def __init__(self) -> None:
-        super().__init__()
-
     def execute(self):
         iris = datasets.load_iris()
         iris_data = iris.data

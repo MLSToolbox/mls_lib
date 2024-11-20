@@ -1,8 +1,7 @@
 """ DataFrame: Component that holds data. """
-
-from .object import Object
-import pandas as pd
 from copy import deepcopy
+import pandas as pd
+from .object import Object
 class DataFrame(Object):
     """ DataFrame: Component that holds data. """
     def __init__(self):
