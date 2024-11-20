@@ -20,4 +20,3 @@ class CreateAdamsOptimizer(Task):
     def execute(self):
         self.optimizer = AdamsOptimizer(self.learning_rate, self.beta1, self.beta2, self.epsilon)
         self._set_output("optimizer", self.optimizer)
-

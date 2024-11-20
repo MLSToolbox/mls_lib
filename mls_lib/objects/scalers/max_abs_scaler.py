@@ -8,4 +8,3 @@ class MaxAbsScaler(Scaler):
     """ MaxAbsScaler: Component that performs max abs scaling. """
     def __init__(self) -> None:
         super().__init__(MAS())
-        

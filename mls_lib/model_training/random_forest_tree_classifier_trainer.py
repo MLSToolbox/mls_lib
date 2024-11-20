@@ -11,4 +11,3 @@ class RandomForestTreeClassifierTrainer(SKLModelTrainer):
             max_depth = max_depth,
             n_estimators = n_estimators
         )
-        

@@ -7,8 +7,6 @@ class SVMTrainer(SKLModelTrainer):
     """ SVMTrainer: Component that trains and makes predictions. """
     def __init__(self, kernel) -> None:
         super().__init__()
-        
         self.model = SVMModel(
             kernel = kernel
         )
-        

@@ -6,7 +6,8 @@ class Pipeline:
         """
         Initializes a new instance of the class.
 
-        This constructor initializes the `stages` dictionary and calls the constructor of the parent class.
+        This constructor initializes the `stages` 
+        dictionary and calls the constructor of the parent class.
 
         Parameters:
             None
@@ -34,7 +35,8 @@ class Pipeline:
         """
         Clears all the stages in the pipeline.
 
-        This method empties the `stages` dictionary, effectively clearing all the stages in the pipeline.
+        This method empties the `stages` dictionary, 
+        effectively clearing all the stages in the pipeline.
 
         Parameters:
             None
@@ -48,9 +50,12 @@ class Pipeline:
         """
         Executes all the stages in the pipeline.
 
-        This method iterates over the stages in the pipeline, checking if each stage is ready for execution.
-        For each ready stage, it collects input data from connected input stages and sets the data for the 
-        current stage. Once the data is set, it executes the stage and marks it as finished. This process 
+        This method iterates over the stages in the pipeline, 
+        checking if each stage is ready for execution.
+        For each ready stage, it collects input data from connected
+        input stages and sets the data for the 
+        current stage. Once the data is set, it executes the stage
+        and marks it as finished. This process 
         continues until all stages in the pipeline have been executed.
 
         Parameters:
@@ -89,7 +94,6 @@ class Pipeline:
         # DON't RE RUN FINISHED STAGES
         if stage.is_finished():
             return False
-        
         # DON'T RUN STAGES WITH UNFINISHED INPUTS
         for _, input_stage_port in inputs.items():
             input_stage, _ = input_stage_port

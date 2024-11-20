@@ -9,4 +9,3 @@ class MaxAbsScalerTrainer(ScalerTrainer):
     def __init__(self, columns : list):
         super().__init__(columns)
         self.scaler = MAS()
-    

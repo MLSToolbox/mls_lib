@@ -12,6 +12,20 @@ class SKLModelTrainer(Task):
         self.truth = DataFrame()
         self.model = Model()
     def set_data(self, features : DataFrame, truth : DataFrame):
+        """
+        Sets the data for training the model.
+
+        Parameters
+        ----------
+        features : DataFrame
+            The input features used for training the model.
+        truth : DataFrame
+            The true labels corresponding to the input features.
+
+        Returns
+        -------
+        None
+        """
         self.features = features
         self.truth = truth
     def execute(self):

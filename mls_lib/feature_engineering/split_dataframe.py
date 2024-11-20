@@ -9,7 +9,6 @@ class SplitDataframe(Task):
         super().__init__()
         self.table = DataFrame()
         self.columns = columns
-
     def set_data(self, table : DataFrame) -> None:
         """
         Sets the input table to be used for column selection.
@@ -21,7 +20,6 @@ class SplitDataframe(Task):
             None
         """
         self.table = table
-
     def execute(self) -> None:
         """
         Executes the function by getting the input dataframe,
@@ -38,12 +36,9 @@ class SplitDataframe(Task):
         data = self.table.get_data()
         selected_data = data[self.columns]
         unselected_data = data.drop(self.columns, axis=1)
-        
         selected_df = DataFrame()
         selected_df.set_data(selected_data)
-        
         unselected_df = DataFrame()
         unselected_df.set_data(unselected_data)
-
         self._set_output("selected_table", selected_df)
         self._set_output("unselected_table", unselected_df)

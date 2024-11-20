@@ -42,4 +42,3 @@ class Encoder(IEncoder):
             None
         """
         return self.encoder.transform(data, self.columns)
-        

@@ -1,7 +1,8 @@
 """ Join: Component that joins two tables. """
+import pandas as pd
+
 from mls_lib.orchestration import Task
 from mls_lib.objects.data_frame import DataFrame
-import pandas as pd
 
 class FeatureJoin(Task):
     """ Join: Component that joins two tables. """
@@ -17,10 +18,10 @@ class FeatureJoin(Task):
     def execute(self):
         df_left =  self.left.get_data()
         df_right = self.right.get_data()
-        
+
         df = pd.concat([df_left, df_right], axis = 1)
 
         new_df = DataFrame()
         new_df.set_data(df)
-        
+
         self._set_output("out", new_df)

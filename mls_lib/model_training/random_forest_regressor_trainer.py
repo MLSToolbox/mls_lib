@@ -9,4 +9,3 @@ class RandomForestRegressorTrainer(SKLModelTrainer):
         super().__init__()
 
         self.model = RandomForestRegressorModel(n_estimators, max_depth, min_samples_leaf)
-        

@@ -11,7 +11,6 @@ class EvaluateAccuracy(Task):
         self.features = DataFrame()
         self.truth = DataFrame()
         self.model = Model()
-    
     def set_data(self, features : DataFrame, truth : DataFrame, model : Model) -> None:
         """
         Sets the data for model evaluation.
@@ -35,7 +34,6 @@ class EvaluateAccuracy(Task):
         self.features = features
         self.truth = truth
         self.model = model
-
     def execute(self) -> None:
         """
         Execute the task.
@@ -57,4 +55,3 @@ class EvaluateAccuracy(Task):
         print("Accuracy: " + str(round(result*100,2)) + " %")
 
         self._set_output("result", result)
-        

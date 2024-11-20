@@ -8,10 +8,8 @@ from . encoder import Encoder
 class OneHotEncoder(Encoder):
     """ OneHotEncoder: Component that trains a one hot encoder. """
     def __init__(self, cols) -> None:
-        self.encoder = OHE(cols=cols)
+        super().__init__(OHE(cols=cols))
         self.columns = cols
-
-
     def fit_transform(self, data : DataFrame, columns : list):
         """
         Fits the encoder to the data and performs a transform operation on the data.

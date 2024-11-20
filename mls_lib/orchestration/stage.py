@@ -4,14 +4,12 @@ from mls_lib.orchestration.task import Step
 
 class Stage(Step):
     """ Represents a stage in the pipeline. """
-
     def __init__(self, name : str):
         """ Initializes a new instance of the class. """
         super().__init__()
         self.name = name
         self.tasks = {}
         self.inputs = {}
-    
     def __repr__(self):
         """ Returns a string representation of the stage. """
         return self.name
@@ -22,21 +20,17 @@ class Stage(Step):
     def add_output(self, port, task_port):
         """ Adds an output to the stage. """
         self.outputs[port] = task_port
-
     def get_output(self, port):
         """ Get false output (output of the previous stages) for the tasks in the stage. """
-        return self.inputs[port]
-        
+        return self.inputs[port]  
     def get_stage_output(self, port):
         """ Get the output of the stage. """
         output_task, output_port = self.outputs[port]
         return output_task.get_output(output_port)
-    
     def set_data(self, **kwargs):
         """ Sets the data of the stage. """
         for port, value in kwargs.items():
             self.inputs[port] = value
-
     def execute(self):
         """ Executes all the tasks in the stage. """
         print("Executing Stage: " + self.name)

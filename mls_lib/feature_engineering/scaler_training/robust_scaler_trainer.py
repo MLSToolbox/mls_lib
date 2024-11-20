@@ -10,4 +10,3 @@ class RobustScalerTrainer(ScalerTrainer):
         super().__init__(columns)
 
         self.scaler = RS()
-    

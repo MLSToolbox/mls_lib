@@ -7,7 +7,6 @@ class Step:
     def __init__(self) -> None:
         self.outputs = {}
         self.finished = False
-
     def execute(self):
         """ Execute the step. """
     def get_output(self, port):

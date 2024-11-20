@@ -2,12 +2,10 @@
 
 from mls_lib.objects import Object
 class Model(Object):
-
+    """ Model: Component that trains and makes predictions. """
     def __init__(self) -> None:
         super().__init__()
         self.model = None
-
-    """ Model: Component that trains and makes predictions. """
     def train(self, features = None, truth = None):
         """ Train the model. """
         self.model.fit(features, truth)

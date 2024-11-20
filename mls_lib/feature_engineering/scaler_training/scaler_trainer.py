@@ -11,7 +11,7 @@ class ScalerTrainer(Task):
         self.data = DataFrame()
         self.columns = columns
         self.scaler = IScaler()
-    
+
     def set_data(self, data : DataFrame) -> None:
         self.data = data
 

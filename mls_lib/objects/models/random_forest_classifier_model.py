@@ -9,4 +9,3 @@ class RandomForestClassifierModel(Model):
             max_depth = int(max_depth),
             n_estimators = int(n_estimators)
         )
-    

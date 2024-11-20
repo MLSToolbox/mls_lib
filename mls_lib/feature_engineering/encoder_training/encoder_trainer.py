@@ -11,7 +11,7 @@ class EncoderTrainer(Task):
         self.columns = columns
         self.data = DataFrame()
         self.encoder = IEncoder()
-    
+
     def set_data(self, data : DataFrame) -> None:
         self.data = data
 

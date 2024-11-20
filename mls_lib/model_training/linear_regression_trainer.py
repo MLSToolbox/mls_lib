@@ -9,4 +9,3 @@ class LinearRegressionTrainer(SKLModelTrainer):
         super().__init__()
 
         self.model = LinearRegressionModel()
-        

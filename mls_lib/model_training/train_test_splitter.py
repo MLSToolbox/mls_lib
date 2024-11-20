@@ -12,8 +12,21 @@ class TrainTestSplitter(Task):
         self.features = DataFrame()
         self.truth = DataFrame()
         self.train_percentage = train_percentage
-    
     def set_data(self, features : DataFrame, truth : DataFrame) -> None:
+        """
+        Sets the data for training and testing.
+
+        Parameters
+        ----------
+        features : DataFrame
+            The input features used for model training.
+        truth : DataFrame
+            The true labels corresponding to the input features.
+
+        Returns
+        -------
+        None
+        """
         self.features = features
         self.truth = truth
 

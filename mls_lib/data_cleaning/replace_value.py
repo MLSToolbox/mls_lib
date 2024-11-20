@@ -13,7 +13,7 @@ class ReplaceValue(Task):
 
     def set_data(self, data_in : DataFrame) -> None:
         self.data_in = data_in
-    
+
     def execute(self) -> None:
         df = self.data_in.get_data()
         df[self.column] = df[self.column].map(self.value_map)

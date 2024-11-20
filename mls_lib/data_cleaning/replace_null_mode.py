@@ -17,7 +17,7 @@ class ReplaceNullMode(Task):
         df = self.data_in.get_data()
 
         df[self.column] = df[self.column].fillna(df[self.column].mode()[0])
-        
+
         self.data_in.set_data(df)
 
         self._set_output("out", self.data_in)

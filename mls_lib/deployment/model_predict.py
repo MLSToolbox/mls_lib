@@ -10,14 +10,14 @@ class ModelPredict(Task):
         self.model = Model()
         self.features = DataFrame()
         self.prediction = DataFrame()
-    
+
     def set_data(self, model : Model, features : DataFrame) -> None:
         self.model = model
         self.features = features
-    
+
     def execute(self):
         data = self.model.predict(self.features.get_data())
-        
+
         self.prediction.from_np_array(data)
 
         self._set_output("prediction", self.prediction)
