@@ -18,6 +18,6 @@ class ModelPredict(Task):
     def execute(self):
         data = self.model.predict(self.features.get_data())
 
-        self.prediction.from_np_array(data)
+        self.prediction.from_np_array(data, self.model.get_headers())
 
         self._set_output("prediction", self.prediction)

@@ -26,7 +26,7 @@ class IEncoder(Object):
             data (numpy.ndarray): The input data to be encoded.
 
         Returns:
-            data (DataFrame): Converted dataframe.
+            data (DataFrame): Result of the transformation
         """
 
     def transform(self, data : DataFrame):

@@ -28,7 +28,10 @@ class SKLModelTrainer(Task):
         """
         self.features = features
         self.truth = truth
+
     def execute(self):
         self.model.train(self.features.get_data(), self.truth.get_data())
+
+        self.model.set_headers(self.truth.get_headers())
 
         self._set_output("model", self.model)
