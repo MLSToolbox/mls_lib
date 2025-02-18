@@ -43,4 +43,4 @@ class ColumnConcat(Task):
         joined_df = DataFrame()
         joined_df.set_data(data)
 
-        self._set_output("joined_table", joined_df)
+        self._set_output("selected_table", joined_df)
