@@ -7,3 +7,4 @@ from .duplicate_column import DuplicateColumn
 from .text_transforms.prefix_transform import PrefixTransform
 from .text_transforms.suffix_transform import SuffixTransform
 from .split_dataframe import SplitDataframe
+from .column_concat import ColumnConcat
