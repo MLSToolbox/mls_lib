@@ -1,6 +1,6 @@
 from pytest import fixture
 from unittest.mock import patch, Mock
-from mls_lib.orchestration import Stage, Task
+from ...mls_lib.orchestration import Stage, Task
 
 
 

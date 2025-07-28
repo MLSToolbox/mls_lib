@@ -1,5 +1,5 @@
 from pytest import fixture
-from mls_lib.orchestration import Pipeline
+from ...mls_lib.orchestration import Pipeline
 
 @fixture
 def pipeline():
