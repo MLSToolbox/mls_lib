@@ -43,6 +43,7 @@ jobs:
     
     - name: Run pytest with coverage
       run: |
+        cd mls_lib
         pytest --cov=. --cov-report=xml --cov-report=html:htmlcov --cov-report=term-missing --cov-fail-under=80
     
     - name: Debug - List files after tests
