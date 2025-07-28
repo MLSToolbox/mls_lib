@@ -1,4 +1,4 @@
-from mls_lib.objects.object import Object
+from ...mls_lib.objects.object import Object
 from pytest import fixture
 
 @fixture

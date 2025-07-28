@@ -1,5 +1,5 @@
-from mls_lib.objects.encoders import CategoricalBoostEncoder
-from mls_lib.objects.data_frame import DataFrame, pd
+from ....mls_lib.objects.encoders import CategoricalBoostEncoder
+from ....mls_lib.objects.data_frame import DataFrame, pd
 
 def test_cat_boost_encoder():
     c = CategoricalBoostEncoder()

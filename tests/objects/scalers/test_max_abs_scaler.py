@@ -1,5 +1,5 @@
-from mls_lib.objects.scalers import MaxAbsScaler
-from mls_lib.objects.data_frame import DataFrame, pd
+from ....mls_lib.objects.scalers import MaxAbsScaler
+from ....mls_lib.objects.data_frame import DataFrame, pd
 from pytest import fixture
 
 @fixture

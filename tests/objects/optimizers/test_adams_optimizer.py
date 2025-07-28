@@ -1,6 +1,4 @@
-from mls_lib.objects.optimizers import AdamsOptimizer
-
-
+from ....mls_lib.objects.optimizers import AdamsOptimizer
 
 def test_adams_optimizer():
     a = AdamsOptimizer(
