@@ -1,5 +1,5 @@
-from ....mls_lib.objects.encoders import OneHotEncoder
-from ....mls_lib.objects.data_frame import DataFrame, pd
+from mls_lib.objects.encoders import OneHotEncoder
+from mls_lib.objects.data_frame import DataFrame, pd
 
 def test_one_hot_encoder():
     o = OneHotEncoder([])
