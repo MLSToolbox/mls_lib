@@ -1,6 +1,6 @@
 """class Stage: Represents a stage in the pipeline. """
 import uuid
-from mls_lib.orchestration.task import Step
+from mls_lib.orchestration import Step, Task
 
 class Stage(Step):
     """ Represents a stage in the pipeline. """
@@ -13,7 +13,7 @@ class Stage(Step):
     def __repr__(self):
         """ Returns a string representation of the stage. """
         return self.name
-    def add_task(self, task, **inputs):
+    def add_task(self, task : Task, **inputs):
         """ Adds a task to the stage. """
         task_key = str(uuid.uuid4())
         self.tasks[task_key] = (task, inputs)
