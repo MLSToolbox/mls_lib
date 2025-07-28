@@ -161,4 +161,6 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-asdf
+mls_lib/COCO Dataset.v37i.yolov11
+mls_lib/m_lib_env
+mlsl_env

@@ -11,6 +11,8 @@ class LabelEncoder(Encoder):
         self.columns = columns
         for column in columns:
             data[column] = self.encoder.fit_transform(data[column])
+        return data
     def transform(self, data):
         for column in self.columns:
             data[column] = self.encoder.transform(data[column])
+        return data
