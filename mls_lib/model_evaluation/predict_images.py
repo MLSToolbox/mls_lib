@@ -1,10 +1,13 @@
-""" Image prediction step. """
+"""Image prediction step."""
 
 from mls_lib.orchestration.task import Task
 from mls_lib.objects.data_frame import DataFrame
 from mls_lib.objects.models.model import Model
+
+
 class ImagePrediction(Task):
-    """ Image prediction step. """
+    """Image prediction step."""
+
     def __init__(self, save_folder: str) -> None:
         super().__init__()
 
@@ -12,7 +15,7 @@ class ImagePrediction(Task):
         self.model = Model()
         self.save_folder = save_folder
 
-    def set_data(self, image_paths : DataFrame, model : Model) -> None:
+    def set_data(self, image_paths: DataFrame, model: Model) -> None:
         """
         Sets the data for image prediction.
 
@@ -45,7 +48,8 @@ class ImagePrediction(Task):
         None
         """
         self.model.predict(
-            image_paths = self.image_paths.get_data(),
-            save_folder=self.save_folder)
-        
+            image_paths=self.image_paths.get_data()["images"].tolist(),
+            save_folder=self.save_folder,
+        )
+
         print("Images predicted, it was saved in path:", self.save_folder)
