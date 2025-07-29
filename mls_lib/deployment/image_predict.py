@@ -5,7 +5,7 @@ from mls_lib.objects.data_frame import DataFrame
 from mls_lib.objects.models.model import Model
 
 
-class ImagePrediction(Task):
+class ImagePredict(Task):
     """Image prediction step."""
 
     def __init__(self, save_folder: str) -> None:
