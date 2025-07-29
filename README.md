@@ -1,6 +1,6 @@
 # MLS Library
 [![Python Tests and Coverage](https://github.com/MLSToolbox/mls_lib/actions/workflows/main.yml/badge.svg)](https://github.com/MLSToolbox/mls_lib/actions/workflows/main.yml)
-[![codecov](https://codecov.io/github/MLSToolbox/mls_lib/graph/badge.svg?token=XKJB7UXH5Q)](https://codecov.io/github/MLSToolbox/mls_lib)
+[![codecov](https://codecov.io/github/MLSToolbox/mls_lib/graph/badge.svg)](https://codecov.io/github/MLSToolbox/mls_lib)
 
 
 mls_lib is a Python library containing a set of classes, organized in different packages, representing the structure and the main concepts required to instantiate and orchestrate any ML pipeline, its stages and the tasks that these stages perform. These classes have been carefully designed to meet Software Engineering design principles. 
