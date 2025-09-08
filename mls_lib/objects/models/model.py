@@ -2,6 +2,9 @@
 
 from mls_lib.objects import Object
 from numpy import ndarray
+from sklearn.metrics import r2_score, mean_squared_error, root_mean_squared_error
+
+
 class Model(Object):
     """ Model: Component that trains and makes predictions. """
     def __init__(self) -> None:
@@ -43,6 +46,67 @@ class Model(Object):
             The mean accuracy of the model.
         """
         return self.model.score(x_test, y_test)
+    
+    def scoreR2(self, x_test: ndarray, y_test: ndarray):
+        """
+        Returns the R2 score of the model, given test data.
+
+        Parameters
+        ----------
+        x_test : ndarray
+            The test data to evaluate the model against.
+        y_test : ndarray
+            The ground truth labels for x_test.
+
+        Returns
+        -------
+        float
+            The R2 score of the model.
+        """
+        y_pred = self.model.predict(x_test)
+        r2 = r2_score(y_test, y_pred)
+        return r2
+    
+    def scoreMSE(self, x_test: ndarray, y_test: ndarray):
+        """
+        Returns the mean squared error (MSE) of the model, given test data.
+
+        Parameters
+        ----------
+        x_test : ndarray
+            The test data to evaluate the model against.
+        y_test : ndarray
+            The ground truth labels for x_test.
+
+        Returns
+        -------
+        float
+            The mean squared error of the model.
+        """
+        y_pred = self.model.predict(x_test)
+        mse = mean_squared_error(y_test, y_pred)
+        return mse
+    
+    def scoreRMSE(self, x_test: ndarray, y_test: ndarray):
+        """
+        Returns the root mean squared error (RMSE) of the model, given test data.
+
+        Parameters
+        ----------
+        x_test : ndarray
+            The test data to evaluate the model against.
+        y_test : ndarray
+            The ground truth labels for x_test.
+
+        Returns
+        -------
+        float
+            The root mean squared error of the model.
+        """
+        y_pred = self.model.predict(x_test)
+        rmse = root_mean_squared_error(y_test, y_pred)
+        return rmse
+    
     def set_headers(self, headers : list[str]):
         """
         Sets the column headers for the model.

@@ -38,8 +38,7 @@ class EvaluateAccuracy(Task):
         """
         Execute the task.
 
-        This method trains the model with the given features and truth labels, makes
-        predictions and evaluates the accuracy of the model.
+        This method evaluates the accuracy of the model.
 
         The accuracy is then printed to the console, rounded to 2 decimal places.
 
@@ -54,4 +53,4 @@ class EvaluateAccuracy(Task):
         result = self.model.score(self.features.get_data(), self.truth.get_data())
         print("Accuracy: " + str(round(result*100,2)) + " %")
 
-        self._set_output("result", result)
+        self._set_output("accuracy", result)
