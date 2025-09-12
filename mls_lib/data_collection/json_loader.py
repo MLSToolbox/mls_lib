@@ -13,4 +13,4 @@ class JSONLoader(Task):
         df = DataFrame()
         data = pd.read_json(self.path)
         df.set_data(data)
-        self._set_output("resulting_table", df)
+        self._set_output("out", df)

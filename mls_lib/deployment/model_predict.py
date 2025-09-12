@@ -16,7 +16,8 @@ class ModelPredict(Task):
         self.features = features
 
     def execute(self):
-        data = self.model.predict(self.features.get_data())
+        features = [i[0] for i in self.features.get_data().values]
+        data = self.model.predict(features)
 
         self.prediction.from_np_array(data, self.model.get_headers())
 

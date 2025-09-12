@@ -3,6 +3,7 @@
 from mls_lib.orchestration.task import Task
 from mls_lib.objects.models import Model
 from mls_lib.objects.data_frame import DataFrame
+import numpy as np
 
 class SKLModelTrainer(Task):
     """ SKLModelTrainer: Component that trains and makes predictions. """
@@ -30,7 +31,12 @@ class SKLModelTrainer(Task):
         self.truth = truth
 
     def execute(self):
-        self.model.train(self.features.get_data(), self.truth.get_data())
+        features = [i[0] for i in self.features.get_data().values]
+        truth = [i[0] for i in self.truth.get_data().values]
+        self.model.train(
+            np.vstack(features),
+            np.vstack(truth)
+        )
 
         self.model.set_headers(self.truth.get_headers())
 
