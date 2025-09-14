@@ -3,6 +3,7 @@
 from mls_lib.objects import Object
 from numpy import ndarray
 from sklearn.metrics import r2_score, mean_squared_error, root_mean_squared_error
+from sklearn.metrics import classification_report, confusion_matrix
 
 
 class Model(Object):
@@ -106,6 +107,52 @@ class Model(Object):
         y_pred = self.model.predict(x_test)
         rmse = root_mean_squared_error(y_test, y_pred)
         return rmse
+    
+    def classificationReport(self, x_test: ndarray, y_test: ndarray):
+        """
+        Returns the classification report of the model, given test data.
+
+        Parameters
+        ----------
+        x_test : ndarray
+            The test data to evaluate the model against.
+        y_test : ndarray
+            The ground truth labels for x_test.
+
+        Returns
+        -------
+        str
+            The classification report of the model.
+        """
+
+        y_pred = self.model.predict(x_test)
+        y_pred = y_pred.round()
+        y_pred = y_pred.clip(min=y_test.min(), max=y_test.max())
+        report = classification_report(y_test, y_pred)
+        return report
+    
+    def confusionMatrix(self, x_test: ndarray, y_test: ndarray):
+        """
+        Returns the confusion matrix of the model, given test data.
+
+        Parameters
+        ----------
+        x_test : ndarray
+            The test data to evaluate the model against.
+        y_test : ndarray
+            The ground truth labels for x_test.
+
+        Returns
+        -------
+        str
+            The confusion matrix of the model.
+        """
+
+        y_pred = self.model.predict(x_test)
+        y_pred = y_pred.round()
+        y_pred = y_pred.clip(min=y_test.min(), max=y_test.max())
+        report = confusion_matrix(y_test, y_pred)
+        return report
     
     def set_headers(self, headers : list[str]):
         """

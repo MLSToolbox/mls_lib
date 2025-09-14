@@ -21,8 +21,11 @@ class EvaluateMSE(EvaluateAccuracy):
         -------
         None
         """
-        mse = self.model.scoreMSE(self.features.get_data(), self.truth.get_data())
-        rmse = self.model.scoreRMSE(self.features.get_data(), self.truth.get_data())
+        features = self.pandasToNumpy(self.features.get_data().values)
+        truth = self.pandasToNumpy(self.truth.get_data().values)
+
+        mse = self.model.scoreMSE(features, truth)
+        rmse = self.model.scoreRMSE(features, truth)
         print("MSE: " + str(round(mse*100,2)) + " %")
         print("RMSE: " + str(round(rmse*100,2)) + " %")
 

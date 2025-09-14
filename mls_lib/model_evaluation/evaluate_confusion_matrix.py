@@ -1,17 +1,17 @@
-""" R2 evaluation step. """
+""" Confusion Matrix evaluation step. """
 from .evaluate_accuracy import EvaluateAccuracy
 
-class EvaluateR2(EvaluateAccuracy):
-    """ R2 evaluation step. """
+class EvaluateConfusionMatrix(EvaluateAccuracy):
+    """ Confusion Matrix evaluation step. """
     def __init__(self) -> None:
         super().__init__()
     def execute(self) -> None:
         """
         Execute the task.
 
-        This method evaluates the R2 of the model.
+        This method generates a confusion matrix for the model.
 
-        The R2 is then printed to the console, rounded to 2 decimal places.
+        The confusion matrix is then printed to the console.
 
         Parameters
         ----------
@@ -25,7 +25,7 @@ class EvaluateR2(EvaluateAccuracy):
         features = self.pandasToNumpy(self.features.get_data().values)
         truth = self.pandasToNumpy(self.truth.get_data().values)
 
-        result = self.model.scoreR2(features, truth)
-        print("R2: " + str(round(result*100,2)) + " %")
+        result = self.model.confusionMatrix(features, truth)
+        print("Confusion Matrix:\n", result)
 
-        self._set_output("r2", result)
+        self._set_output("confusion_matrix", result)
