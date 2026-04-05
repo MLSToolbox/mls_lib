@@ -1,4 +1,5 @@
 """ JOBLIB SAVE MODEL """
+from mls_lib.objects.models.model import Model
 from mls_lib.orchestration.task import Task
 from mls_lib.objects import Path as PathOutput
 
@@ -9,17 +10,22 @@ class JoblibSaveModel(Task):
     """ Joblib Save Model """
     def __init__(self, path: str = "") -> None:
         super().__init__()
-        self.model = None
+        self.model = Model()
         self.path = path
 
     def set_data(self, model) -> None:
-        """Store model received from stage wiring."""
+        """ Stores model received from stage wiring.
+        Parameters:
+            model: The model to be saved.
+        Returns:
+            None
+        """
         self.model = model
 
     def execute(self) :
         model = self.model
         
-        # As the model is wrapped by the mls_lib, we need to check if it has a model attribute and save that instead.
+        # As the model is wrapped by the mls_lib, we check if it has a model attribute and save that instead.
         # Firstly, we save this wrapped model in the variable. If the model has a model attribute, we will save that instead.
         
         model_to_save = model
