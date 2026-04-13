@@ -1,5 +1,7 @@
 """ Pipeline Class"""
 import uuid
+from .metadata import Metadata
+
 class Pipeline:
     """Pipeline: Component that orchestrates a sequence of stages in a pipeline. """
     def __init__(self):
@@ -64,6 +66,7 @@ class Pipeline:
         Returns:
             None
         """
+        Metadata.resetMetadata()
         stage_keys = list(self.stages.keys())
         finish_count = 0
         while finish_count < len(self.stages):

@@ -48,6 +48,7 @@ class Stage(Step):
                 if len(data) > 0:
                     task.set_data(**data)
                 task.execute()
+                task.write_metadata()
                 task.finish_execution()
                 finish_count += 1
         self.finish_execution()

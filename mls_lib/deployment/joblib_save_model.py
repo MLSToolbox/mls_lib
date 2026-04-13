@@ -2,8 +2,10 @@
 from mls_lib.objects.models.model import Model
 from mls_lib.orchestration.task import Task
 from mls_lib.objects import Path as PathOutput
+from mls_lib.orchestration import Metadata
 
 from pathlib import Path as SysPath
+import json
 import joblib
 
 class JoblibSaveModel(Task):
@@ -50,4 +52,18 @@ class JoblibSaveModel(Task):
         
         target_path.parent.mkdir(parents=True, exist_ok=True)
         joblib.dump(model_to_save, target_path)
+
+        metadata_content = Metadata.getMetadata()
+        metadata_content["model_name"] = model_to_save.__class__.__name__
+        metadata_content["version"] = self.version
+        metadata_content["artifact_type"] = "joblib"
+
+        metadata_path = SysPath(f"{target_path}.metadata.json")
+
+        # Use text mode with UTF-8 so the metadata file stays human-readable
+        # and compatible across environments.
+        with open(metadata_path, "w", encoding="utf-8") as metadata_file:
+            # Write pretty JSON (indent=2) to make diffs and manual inspection easy.
+            json.dump(metadata_content, metadata_file, ensure_ascii=False, indent=2)
+
         self._set_output("saved_model_path", PathOutput(str(target_path)))

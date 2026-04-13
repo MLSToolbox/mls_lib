@@ -94,3 +94,34 @@ class TestOnnxSaveModel:
 
         with pytest.raises(ValueError, match="requires a non-empty path"):
             task.execute()
+
+    def test_execute_creates_metadata_file(self, tmp_path, onnx_save_spy):
+        """Tests that the metadata sidecar file is created with expected content."""
+        Metadata.resetMetadata()
+        Metadata.addDataCleaningEntry(
+            Metadata.DataCleaningOperation.REPLACE_NULL_TEXT,
+            columns=["city"],
+            replacement_values=["unknown"],
+        )
+
+        model = {"name": "demo-model", "version": 6}
+        target_path = tmp_path / "metadata" / "model.onnx"
+        task = OnnxSaveModel(path=str(target_path), version="3.0.0")
+        task.set_data(model=model)
+        task.execute()
+
+        metadata_path = tmp_path / "metadata" / "model.onnx.metadata.json"
+        assert metadata_path.exists()
+        assert onnx_save_spy[0][0] == model
+
+        metadata_content = json.loads(metadata_path.read_text(encoding="utf-8"))
+        assert metadata_content["artifact_type"] == "onnx"
+        assert metadata_content["version"] == "3.0.0"
+        assert metadata_content["model_name"] == "dict"
+        assert metadata_content["data_cleaning"] == [
+            {
+                "type": "replace_null_text",
+                "columns": ["city"],
+                "replacement_values": ["unknown"],
+            }
+        ]

@@ -1,8 +1,10 @@
 import joblib
+import json
 import pytest
 
 from mls_lib.deployment import JoblibSaveModel
 from mls_lib.objects.path import Path as PathOutput
+from mls_lib.orchestration import Metadata
 
 
 class TestJoblibSaveModel:
@@ -96,3 +98,33 @@ class TestJoblibSaveModel:
         # Assert: path is required and missing path raises ValueError.
         with pytest.raises(ValueError, match="requires a non-empty path"):
             task.execute()
+
+    def test_execute_creates_metadata_file(self, tmp_path):
+        """Tests that the metadata sidecar file is created with expected content."""
+        Metadata.resetMetadata()
+        Metadata.addDataCleaningEntry(
+            Metadata.DataCleaningOperation.REPLACE_NULL_ZERO,
+            columns=["age"],
+            replacement_values=[0],
+        )
+
+        model = {"name": "demo-model", "version": 6}
+        target_path = tmp_path / "metadata" / "model.joblib"
+        task = JoblibSaveModel(path=str(target_path), version="2.1.0")
+        task.set_data(model=model)
+        task.execute()
+
+        metadata_path = tmp_path / "metadata" / "model.joblib.metadata.json"
+        assert metadata_path.exists()
+
+        metadata_content = json.loads(metadata_path.read_text(encoding="utf-8"))
+        assert metadata_content["artifact_type"] == "joblib"
+        assert metadata_content["version"] == "2.1.0"
+        assert metadata_content["model_name"] == "dict"
+        assert metadata_content["data_cleaning"] == [
+            {
+                "type": "replace_null_zero",
+                "columns": ["age"],
+                "replacement_values": [0],
+            }
+        ]
