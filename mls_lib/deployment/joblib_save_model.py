@@ -8,10 +8,11 @@ import joblib
 
 class JoblibSaveModel(Task):
     """ Joblib Save Model """
-    def __init__(self, path: str = "") -> None:
+    def __init__(self, path: str = "", version: str = "") -> None:
         super().__init__()
         self.model = Model()
         self.path = path
+        self.version = version if version else "1.0.0"
 
     def set_data(self, model) -> None:
         """ Stores model received from stage wiring.

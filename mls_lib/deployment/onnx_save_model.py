@@ -8,10 +8,11 @@ import onnx
 
 class OnnxSaveModel(Task):
     """ ONNX Save Model """
-    def __init__(self, path: str = "") -> None:
+    def __init__(self, path: str = "", version: str = "") -> None:
         super().__init__()
         self.model = Model()
         self.path = path
+        self.version = version if version else "1.0.0"
 
     def set_data(self, model) -> None:
         """ Stores model received from stage wiring.
@@ -50,5 +51,5 @@ class OnnxSaveModel(Task):
         target_path.parent.mkdir(parents=True, exist_ok=True)
         
         onnx.save(model_to_save, str(target_path))
-        
+
         self._set_output("saved_model_path", PathOutput(str(target_path)))

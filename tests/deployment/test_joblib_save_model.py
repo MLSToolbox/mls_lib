@@ -18,9 +18,10 @@ class TestJoblibSaveModel:
         # Prepare: test data and relative output path.
         model = {"name": "demo-model", "version": 1}
         relative_path = "artifacts/model.joblib"
+        model_version = "1.0.1"
 
         # Execute: configure task input and execute.
-        task = JoblibSaveModel(path=relative_path)
+        task = JoblibSaveModel(path=relative_path, version=model_version)
         task.set_data(model=model)
         task.execute()
 
@@ -37,9 +38,10 @@ class TestJoblibSaveModel:
         # Prepare: test data and absolute output path.
         model = {"name": "demo-model", "version": 2}
         absolute_path = tmp_path / "out" / "model.joblib"
+        model_version = "1.0.2"
 
         # Execute: configure task input and execute.
-        task = JoblibSaveModel(path=str(absolute_path))
+        task = JoblibSaveModel(path=str(absolute_path), version=model_version)
         task.set_data(model=model)
 
         task.execute()
@@ -58,9 +60,10 @@ class TestJoblibSaveModel:
         # Prepare: test data and a path with missing parent directories.
         model = {"name": "demo-model", "version": 3}
         target_path = tmp_path / "nested" / "models" / "trained.joblib"
+        model_version = "1.0.3"
 
         # Execute: configure task input and execute.
-        task = JoblibSaveModel(path=str(target_path))
+        task = JoblibSaveModel(path=str(target_path), version=model_version)
         task.set_data(model=model)
 
         task.execute()
@@ -72,7 +75,7 @@ class TestJoblibSaveModel:
     def test_execute_saves_underlying_model_when_wrapped(self, tmp_path):
         """Tests that wrapped models are unwrapped before serialization."""
         # Prepare: wrap a native model-like payload inside a container object.
-        task = JoblibSaveModel(path=str(tmp_path / "wrapped" / "model.joblib"))
+        task = JoblibSaveModel(path=str(tmp_path / "wrapped" / "model.joblib"), version="1.0.4")
         wrapped_model = self._WrappedModel(model={"name": "demo-model", "version": 4})
 
         # Execute: configure task input and execute.
@@ -87,7 +90,7 @@ class TestJoblibSaveModel:
     def test_execute_raises_value_error_when_path_is_empty(self):
         """Tests that execute raises ValueError when path is empty."""
         # Prepare: configure a task without an output path.
-        task = JoblibSaveModel(path="")
+        task = JoblibSaveModel(path="", version="1.0.5")
         task.set_data(model={"name": "demo-model", "version": 5})
 
         # Assert: path is required and missing path raises ValueError.
