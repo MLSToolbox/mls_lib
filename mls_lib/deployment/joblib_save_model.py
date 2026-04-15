@@ -10,10 +10,10 @@ import joblib
 
 class JoblibSaveModel(Task):
     """ Joblib Save Model """
-    def __init__(self, path: str = "", version: str = "") -> None:
+    def __init__(self, model_name: str = "", version: str = "") -> None:
         super().__init__()
         self.model = Model()
-        self.path = path
+        self.model_name = model_name
         self.version = version if version else "1.0.0"
 
     def set_data(self, model) -> None:
@@ -35,26 +35,23 @@ class JoblibSaveModel(Task):
         if hasattr(model, "model") and getattr(model, "model") is not None:
             model_to_save = getattr(model, "model")
 
-        path = self.path
-        if not path:
-            raise ValueError("JoblibSaveModel requires a non-empty path")
+        model_name = self.model_name.strip()
+        if not model_name:
+            raise ValueError("JoblibSaveModel requires a non-empty model_name")
 
-        # Creates the absolute path of the provided path.
-        # An absolute path is the one that starts from the root directory.
-        # A relative one is the one that starts from the current working directory.
-        # We want the path to be absolute, to save the model in the correct location. 
+        # Always write artifacts in ./artifacts using model_name as filename.
+        normalized_name = SysPath(model_name).name
+        if normalized_name.endswith(".joblib"):
+            normalized_name = normalized_name[:-7]
 
-        base_dir = SysPath.cwd()
-        target_path = SysPath(path)
+        artifacts_dir = SysPath.cwd() / "artifacts"
+        artifacts_dir.mkdir(parents=True, exist_ok=True)
+        target_path = artifacts_dir / f"{normalized_name}.joblib"
 
-        if not target_path.is_absolute():
-            target_path = base_dir / target_path
-        
-        target_path.parent.mkdir(parents=True, exist_ok=True)
         joblib.dump(model_to_save, target_path)
 
         metadata_content = Metadata.getMetadata()
-        metadata_content["model_name"] = model_to_save.__class__.__name__
+        metadata_content["model_name"] = self.model_name
         metadata_content["version"] = self.version
         metadata_content["artifact_type"] = "joblib"
 
