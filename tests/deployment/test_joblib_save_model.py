@@ -94,7 +94,7 @@ class TestJoblibSaveModel:
         metadata_content = json.loads(metadata_path.read_text(encoding="utf-8"))
         assert metadata_content["artifact_type"] == "joblib"
         assert metadata_content["version"] == "2.1.0"
-        assert metadata_content["model_name"] == "dict"
+        assert metadata_content["model_name"] == "model"
         assert metadata_content["data_cleaning"] == [
             {
                 "type": "replace_null_zero",

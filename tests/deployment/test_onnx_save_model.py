@@ -89,7 +89,7 @@ class TestOnnxSaveModel:
         metadata_content = json.loads(metadata_path.read_text(encoding="utf-8"))
         assert metadata_content["artifact_type"] == "onnx"
         assert metadata_content["version"] == "3.0.0"
-        assert metadata_content["model_name"] == "ModelProto"
+        assert metadata_content["model_name"] == "model"
         assert metadata_content["data_cleaning"] == [
             {
                 "type": "replace_null_text",
