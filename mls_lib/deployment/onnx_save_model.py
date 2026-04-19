@@ -1,4 +1,4 @@
-""" JOBLIB SAVE MODEL """
+""" ONNX SAVE MODEL"""
 from mls_lib.objects.models.model import Model
 from mls_lib.orchestration.task import Task
 from mls_lib.objects import Path as PathOutput
@@ -6,10 +6,10 @@ from mls_lib.orchestration import Metadata
 
 from pathlib import Path as SysPath
 import json
-import joblib
+import onnx
 
-class JoblibSaveModel(Task):
-    """ Joblib Save Model """
+class OnnxSaveModel(Task):
+    """ ONNX Save Model """
     def __init__(self, model_name: str = "", version: str = "") -> None:
         super().__init__()
         self.model = Model()
@@ -37,23 +37,24 @@ class JoblibSaveModel(Task):
 
         model_name = self.model_name.strip()
         if not model_name:
-            raise ValueError("JoblibSaveModel requires a non-empty model_name")
+            raise ValueError("OnnxSaveModel requires a non-empty model_name")
 
         # Always write artifacts in ./artifacts using model_name as filename.
         normalized_name = SysPath(model_name).name
-        if normalized_name.endswith(".joblib"):
-            normalized_name = normalized_name[:-7]
+        if normalized_name.endswith(".onnx"):
+            normalized_name = normalized_name[:-5]
 
         artifacts_dir = SysPath.cwd() / "artifacts"
         artifacts_dir.mkdir(parents=True, exist_ok=True)
-        target_path = artifacts_dir / f"{normalized_name}.joblib"
+        target_path = artifacts_dir / f"{normalized_name}.onnx"
 
-        joblib.dump(model_to_save, target_path)
+        
+        onnx.save(model_to_save, str(target_path))
 
         metadata_content = Metadata.getMetadata()
         metadata_content["model_name"] = self.model_name
         metadata_content["version"] = self.version
-        metadata_content["artifact_type"] = "joblib"
+        metadata_content["artifact_type"] = "onnx"
 
         metadata_path = SysPath(f"{target_path}.metadata.json")
 
