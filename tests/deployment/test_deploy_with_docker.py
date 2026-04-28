@@ -71,7 +71,7 @@ class TestDeployWithDocker:
         assert captured_commands[0]["cwd"] == str(tmp_path)
 
     def test_deploys_string_model_path_already_in_artifacts(self, tmp_path, monkeypatch):
-        """Should deploy model path already prepared in artifacts when input is a string."""
+        """Should deploy model path already prepared in artifacts when input is a PathOutput."""
         monkeypatch.chdir(tmp_path)
 
         artifacts_dir = tmp_path / "artifacts"
@@ -98,7 +98,7 @@ class TestDeployWithDocker:
             image_name="external-image",
             port=9010,
         )
-        task.set_data("artifacts/external_model.onnx")
+        task.set_data(PathOutput(str(external_artifact)))
         task.execute()
 
         output = task.get_output("deployment_info")
@@ -122,3 +122,4 @@ class TestDeployWithDocker:
         assert captured_commands[0]["cmd"][6:8] == ["-t", "external-image"]
         assert captured_commands[0]["cmd"][-1] == "."
         assert captured_commands[0]["cwd"] == str(tmp_path)
+        assert output["model_path"] == str(external_artifact)
