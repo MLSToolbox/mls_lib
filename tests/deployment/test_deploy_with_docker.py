@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 
 from mls_lib.deployment import DeployWithDocker
@@ -16,11 +15,6 @@ class TestDeployWithDocker:
         source_model_path = artifacts_dir / "trained_model.joblib"
         source_model_path.write_text("serialized-model", encoding="utf-8")
 
-        source_metadata_path = Path(f"{source_model_path}.metadata.json")
-        source_metadata_path.write_text(
-            json.dumps({"schema_version": "1.0.0", "data_cleaning": []}),
-            encoding="utf-8",
-        )
 
         captured_commands = []
 
@@ -52,7 +46,6 @@ class TestDeployWithDocker:
 
         deployment_dir = tmp_path / "artifacts" / "deployment"
         assert source_model_path.exists()
-        assert source_metadata_path.exists()
         assert (deployment_dir / "deployment_config.json").exists()
         assert (deployment_dir / "Dockerfile").exists()
         assert (deployment_dir / "requirements.txt").exists()

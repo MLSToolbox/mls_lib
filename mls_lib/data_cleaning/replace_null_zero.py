@@ -1,6 +1,6 @@
 """ Replace Null Zero: Replaces null values of the given column with 0 """
 
-from mls_lib.orchestration import Task, Metadata
+from mls_lib.orchestration import Task
 from mls_lib.objects.data_frame import DataFrame
 
 
@@ -24,9 +24,3 @@ class ReplaceNullZero(Task):
 
         self._set_output("out", self.data_in)
 
-    def write_metadata(self) -> None:
-        Metadata.addDataCleaningEntry(
-            operation=Metadata.DataCleaningOperation.REPLACE_NULL_ZERO,
-            columns=[self.column],
-            replacement_values=[0],
-        )

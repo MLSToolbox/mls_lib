@@ -105,7 +105,7 @@ class DeployWithDocker(Task):
         return template_path.read_text(encoding="utf-8")
 
     def _build_image(self, deployment_dir: SysPath, model_filename: str) -> None:
-        """Builds Docker image that packages model artifact and metadata."""
+        """Builds Docker image that packages the model artifact."""
         self._run_command(
             [
                 "docker",

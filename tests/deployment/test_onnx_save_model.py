@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 
 import onnx
@@ -8,7 +7,6 @@ from sklearn.linear_model import LinearRegression
 from mls_lib.deployment import OnnxSaveModel
 from mls_lib.objects.data_frame import DataFrame
 from mls_lib.objects.path import Path as PathOutput
-from mls_lib.orchestration import Metadata
 
 
 class TestOnnxSaveModel:
@@ -103,41 +101,10 @@ class TestOnnxSaveModel:
 
     def test_execute_raises_value_error_when_model_name_is_empty(self):
         """Tests that execute raises ValueError when model_name is empty."""
-        # model_name validation should happen before writing or metadata creation.
+        # model_name validation should happen before writing the artifact.
         task = OnnxSaveModel(model_name="", version="1.0.5")
         task.set_data(model={"name": "demo-model", "version": 5})
 
         with pytest.raises(ValueError, match="requires a non-empty model_name"):
             task.execute()
 
-    def test_execute_creates_metadata_file(self, tmp_path, monkeypatch):
-        """Tests that the metadata sidecar file is created with expected content."""
-        monkeypatch.chdir(tmp_path)
-
-        # Metadata should preserve pipeline provenance in a sidecar JSON.
-        Metadata.resetMetadata()
-        Metadata.addDataCleaningEntry(
-            Metadata.DataCleaningOperation.REPLACE_NULL_TEXT,
-            columns=["city"],
-            replacement_values=["unknown"],
-        )
-
-        model = onnx.ModelProto()
-        task = OnnxSaveModel(model_name="model", version="3.0.0")
-        task.set_data(model=model)
-        task.execute()
-
-        metadata_path = tmp_path / "artifacts" / "model.onnx.metadata.json"
-        assert metadata_path.exists()
-
-        metadata_content = json.loads(metadata_path.read_text(encoding="utf-8"))
-        assert metadata_content["artifact_type"] == "onnx"
-        assert metadata_content["version"] == "3.0.0"
-        assert metadata_content["model_name"] == "model"
-        assert metadata_content["data_cleaning"] == [
-            {
-                "type": "replace_null_text",
-                "columns": ["city"],
-                "replacement_values": ["unknown"],
-            }
-        ]

@@ -1,10 +1,8 @@
 import joblib
-import json
 import pytest
 
 from mls_lib.deployment import JoblibSaveModel
 from mls_lib.objects.path import Path as PathOutput
-from mls_lib.orchestration import Metadata
 
 
 class TestJoblibSaveModel:
@@ -71,34 +69,3 @@ class TestJoblibSaveModel:
         # Assert: model_name is required and missing name raises ValueError.
         with pytest.raises(ValueError, match="requires a non-empty model_name"):
             task.execute()
-
-    def test_execute_creates_metadata_file(self, tmp_path, monkeypatch):
-        """Tests that the metadata sidecar file is created with expected content."""
-        monkeypatch.chdir(tmp_path)
-
-        Metadata.resetMetadata()
-        Metadata.addDataCleaningEntry(
-            Metadata.DataCleaningOperation.REPLACE_NULL_ZERO,
-            columns=["age"],
-            replacement_values=[0],
-        )
-
-        model = {"name": "demo-model", "version": 6}
-        task = JoblibSaveModel(model_name="model", version="2.1.0")
-        task.set_data(model=model)
-        task.execute()
-
-        metadata_path = tmp_path / "artifacts" / "model.joblib.metadata.json"
-        assert metadata_path.exists()
-
-        metadata_content = json.loads(metadata_path.read_text(encoding="utf-8"))
-        assert metadata_content["artifact_type"] == "joblib"
-        assert metadata_content["version"] == "2.1.0"
-        assert metadata_content["model_name"] == "model"
-        assert metadata_content["data_cleaning"] == [
-            {
-                "type": "replace_null_zero",
-                "columns": ["age"],
-                "replacement_values": [0],
-            }
-        ]

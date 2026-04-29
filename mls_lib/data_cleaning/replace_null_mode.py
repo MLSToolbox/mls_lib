@@ -1,6 +1,6 @@
 """ Replace Null Mode : Replaces null values of the given column with the mode of the column """
 
-from mls_lib.orchestration import Task, Metadata
+from mls_lib.orchestration import Task
 from mls_lib.objects.data_frame import DataFrame
 
 
@@ -25,10 +25,3 @@ class ReplaceNullMode(Task):
 
         self._set_output("out", self.data_in)
 
-    def write_metadata(self) -> None:
-        value = self.used_mode.item() if hasattr(self.used_mode, "item") else self.used_mode
-        Metadata.addDataCleaningEntry(
-            operation=Metadata.DataCleaningOperation.REPLACE_NULL_MODE,
-            columns=[self.column],
-            replacement_values=[value],
-        )

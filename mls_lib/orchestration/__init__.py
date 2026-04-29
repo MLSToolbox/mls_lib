@@ -4,4 +4,3 @@ from .step import Step
 from .task import Task
 from .stage import Stage
 from .param_loader import ParamLoader
-from .metadata import Metadata

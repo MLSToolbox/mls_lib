@@ -1,7 +1,7 @@
 """ Replace Null Average : Replaces all null values of the
 given column with the average of the column """
 
-from mls_lib.orchestration import Task, Metadata
+from mls_lib.orchestration import Task
 from mls_lib.objects.data_frame import DataFrame
 
 
@@ -27,10 +27,3 @@ class ReplaceNullAverage(Task):
 
         self._set_output("out", self.data_in)
 
-    def write_metadata(self) -> None:
-        value = self.used_average.item() if hasattr(self.used_average, "item") else self.used_average
-        Metadata.addDataCleaningEntry(
-            operation=Metadata.DataCleaningOperation.REPLACE_NULL_AVERAGE,
-            columns=[self.column],
-            replacement_values=[value],
-        )

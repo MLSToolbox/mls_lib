@@ -1,11 +1,9 @@
 """ Model artifact loader. """
 
 from pathlib import Path
-import json
 import shutil
 
 from mls_lib.objects import Path as PathOutput
-from mls_lib.orchestration import Metadata
 from mls_lib.orchestration.task import Task
 
 
@@ -39,45 +37,4 @@ class ModelLoader(Task):
         if extension not in {".joblib", ".onnx"}:
             raise ValueError("ModelLoader supports only .joblib or .onnx files")
 
-        metadata_content = Metadata.getMetadata()
-        metadata_content["data_cleaning"] = self._normalize_preprocessing_steps(self.preprocessing_steps)
-        metadata_content["model_name"] = target_model_path.name
-        metadata_content["version"] = metadata_content.get("version", "1.0.0")
-        metadata_content["artifact_type"] = extension.lstrip(".")
-
-        metadata_path = Path(f"{target_model_path}.metadata.json")
-        with open(metadata_path, "w", encoding="utf-8") as metadata_file:
-            json.dump(metadata_content, metadata_file, ensure_ascii=False, indent=2)
-
         self._set_output("model_path", PathOutput(str(target_model_path)))
-
-    def _normalize_preprocessing_steps(self, preprocessing_steps) -> list[dict]:
-        """Normalizes cleaning_map entries into metadata format."""
-        if not preprocessing_steps:
-            return []
-
-        normalized_entries = []
-        for step in preprocessing_steps:
-            if not isinstance(step, dict):
-                continue
-
-            cleaning_type = step.get("cleaning_type", "")
-            column = step.get("column", "")
-            replacement_value = step.get("replacement_value", "")
-
-            columns = [str(column)] if str(column).strip() else []
-            replacement_values = []
-            if isinstance(replacement_value, list):
-                replacement_values = replacement_value
-            elif str(replacement_value).strip():
-                replacement_values = [replacement_value]
-
-            normalized_entries.append(
-                {
-                    "type": str(cleaning_type).strip().lower().replace(" ", "_"),
-                    "columns": columns,
-                    "replacement_values": replacement_values,
-                }
-            )
-
-        return normalized_entries
