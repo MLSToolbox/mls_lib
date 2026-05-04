@@ -52,15 +52,7 @@ class DeployWithDocker(Task):
         )
 
         self._build_image(deployment_dir, source_model_path.name)
-
-        deployment_info = {
-            "image_name": self.image_name,
-            "port": self.port,
-            "deployment_dir": str(deployment_dir),
-            "model_path": str(source_model_path),
-            "image_built": True,
-        }
-        self._set_output("deployment_info", deployment_info)
+        self._run_container()
 
     def _resolve_port(self, port) -> int:
         """Resolves and validates host port, defaulting to 8000."""
@@ -83,6 +75,7 @@ class DeployWithDocker(Task):
         config_path = deployment_dir / "deployment_config.json"
         requirements_path = deployment_dir / "requirements.txt"
         dockerfile_path = deployment_dir / "Dockerfile"
+        service_path = deployment_dir / "service.py"
 
         config_content = {
             "model_filename": model_filename,
@@ -93,9 +86,11 @@ class DeployWithDocker(Task):
 
         requirements_content = self._load_deployment_template("requirements.txt.template")
         dockerfile_content = self._load_deployment_template("Dockerfile.template")
+        service_content = self._load_deployment_template("service.py.template")
 
         requirements_path.write_text(requirements_content, encoding="utf-8")
         dockerfile_path.write_text(dockerfile_content, encoding="utf-8")
+        service_path.write_text(service_content, encoding="utf-8")
 
     def _load_deployment_template(self, template_name: str) -> str:
         """Loads a deployment template from package templates directory."""
@@ -117,6 +112,30 @@ class DeployWithDocker(Task):
                 "-t",
                 self.image_name,
                 ".",
+            ],
+            cwd=SysPath.cwd(),
+            check=True,
+        )
+
+    def _run_container(self) -> None:
+        """Runs the built Docker image and exposes the inference port."""
+        self._run_command(
+            ["docker", "rm", "-f", self.image_name],
+            cwd=SysPath.cwd(),
+            check=False,
+        )
+        self._run_command(
+            [
+                "docker",
+                "run",
+                "-d",
+                "--name",
+                self.image_name,
+                "-p",
+                f"{self.port}:{self.port}",
+                "-e",
+                f"PORT={self.port}",
+                self.image_name,
             ],
             cwd=SysPath.cwd(),
             check=True,
