@@ -38,19 +38,14 @@ class TestDeployWithDocker:
         task.set_data(PathOutput(str(source_model_path)))
         task.execute()
 
-        output = task.get_output("deployment_info")
-        assert output["port"] == 8000
-        assert output["image_name"] == "demo-image"
-        assert output["image_built"] is True
-        assert output["model_path"] == str(source_model_path)
-
         deployment_dir = tmp_path / "artifacts" / "deployment"
         assert source_model_path.exists()
         assert (deployment_dir / "deployment_config.json").exists()
         assert (deployment_dir / "Dockerfile").exists()
         assert (deployment_dir / "requirements.txt").exists()
+        assert (deployment_dir / "service.py").exists()
 
-        assert len(captured_commands) == 1
+        assert len(captured_commands) == 3
         assert captured_commands[0]["cmd"][:6] == [
             "docker",
             "build",
@@ -62,6 +57,20 @@ class TestDeployWithDocker:
         assert captured_commands[0]["cmd"][6:8] == ["-t", "demo-image"]
         assert captured_commands[0]["cmd"][-1] == "."
         assert captured_commands[0]["cwd"] == str(tmp_path)
+        assert captured_commands[1]["cmd"] == ["docker", "rm", "-f", "demo-image"]
+        assert captured_commands[1]["cwd"] == str(tmp_path)
+        assert captured_commands[2]["cmd"][:7] == [
+            "docker",
+            "run",
+            "-d",
+            "--name",
+            "demo-image",
+            "-p",
+            "8000:8000",
+        ]
+        assert captured_commands[2]["cmd"][7:9] == ["-e", "PORT=8000"]
+        assert captured_commands[2]["cmd"][-1] == "demo-image"
+        assert captured_commands[2]["cwd"] == str(tmp_path)
 
     def test_deploys_string_model_path_already_in_artifacts(self, tmp_path, monkeypatch):
         """Should deploy model path already prepared in artifacts when input is a PathOutput."""
@@ -94,16 +103,14 @@ class TestDeployWithDocker:
         task.set_data(PathOutput(str(external_artifact)))
         task.execute()
 
-        output = task.get_output("deployment_info")
-        assert output["port"] == 9010
-        assert output["image_built"] is True
-        assert output["model_path"] == str(external_artifact)
-
         deployment_dir = tmp_path / "artifacts" / "deployment"
         assert (deployment_dir / "deployment_config.json").exists()
+        assert (deployment_dir / "Dockerfile").exists()
+        assert (deployment_dir / "requirements.txt").exists()
+        assert (deployment_dir / "service.py").exists()
         assert external_artifact.exists()
 
-        assert len(captured_commands) == 1
+        assert len(captured_commands) == 3
         assert captured_commands[0]["cmd"][:6] == [
             "docker",
             "build",
@@ -115,4 +122,17 @@ class TestDeployWithDocker:
         assert captured_commands[0]["cmd"][6:8] == ["-t", "external-image"]
         assert captured_commands[0]["cmd"][-1] == "."
         assert captured_commands[0]["cwd"] == str(tmp_path)
-        assert output["model_path"] == str(external_artifact)
+        assert captured_commands[1]["cmd"] == ["docker", "rm", "-f", "external-image"]
+        assert captured_commands[1]["cwd"] == str(tmp_path)
+        assert captured_commands[2]["cmd"][:7] == [
+            "docker",
+            "run",
+            "-d",
+            "--name",
+            "external-image",
+            "-p",
+            "9010:9010",
+        ]
+        assert captured_commands[2]["cmd"][7:9] == ["-e", "PORT=9010"]
+        assert captured_commands[2]["cmd"][-1] == "external-image"
+        assert captured_commands[2]["cwd"] == str(tmp_path)
