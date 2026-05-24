@@ -1,5 +1,5 @@
 """ Join: Component that joins two tables. """
-from mls_lib.orchestration import Task, Metadata
+from mls_lib.orchestration import Task
 from mls_lib.objects.data_frame import DataFrame
 
 class JoinDataFrame(Task):
@@ -23,9 +23,3 @@ class JoinDataFrame(Task):
         new_df.set_data(df)
         self._set_output("out", new_df)
 
-    def write_metadata(self) -> None:
-        Metadata.addDataCleaningEntry(
-            operation=Metadata.DataCleaningOperation.JOIN_DATA_FRAME,
-            columns=[],
-            replacement_values=[],
-        )

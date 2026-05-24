@@ -1,0 +1,71 @@
+import json
+import os
+from pathlib import Path
+
+import numpy as np
+from fastapi import FastAPI, HTTPException
+
+CONFIG_PATH = Path("deployment_config.json")
+
+
+def _load_config() -> dict:
+    with open(CONFIG_PATH, "r", encoding="utf-8") as file_obj:
+        return json.load(file_obj)
+
+
+def _load_model(config: dict):
+    model_path = Path(config["model_artifact_path"])
+    model_extension = config["model_extension"]
+
+    if model_extension in {".joblib", ".pkl", ".pickle"}:
+        import joblib
+
+        return "joblib", joblib.load(model_path)
+
+    if model_extension == ".onnx":
+        import onnxruntime as ort
+
+        return "onnx", ort.InferenceSession(
+            str(model_path),
+            providers=["CPUExecutionProvider"],
+        )
+
+    raise ValueError(f"Unsupported model extension: {model_extension}")
+
+
+MODEL_KIND, MODEL = _load_model(_load_config())
+
+app = FastAPI()
+
+
+@app.get("/health")
+def health() -> dict:
+    return {"status": "ok"}
+
+
+@app.post("/predict")
+def predict(payload: dict) -> dict:
+    if "inputs" not in payload:
+        raise HTTPException(status_code=400, detail="Expected JSON body with 'inputs'")
+
+    # Ensure ONNX models receive float32 inputs.
+    inputs = np.array(payload["inputs"], dtype=np.float32)
+
+    if MODEL_KIND == "onnx":
+        input_name = MODEL.get_inputs()[0].name
+        outputs = MODEL.run(None, {input_name: inputs})
+        result = outputs[0]
+    else:
+        result = MODEL.predict(inputs)
+
+    if hasattr(result, "tolist"):
+        result = result.tolist()
+
+    return {"predictions": result}
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    port = int(os.getenv("PORT", "8000"))
+    uvicorn.run(app, host="0.0.0.0", port=port)

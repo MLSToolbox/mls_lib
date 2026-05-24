@@ -1,12 +1,12 @@
-import json
 from pathlib import Path
 
 import onnx
 import pytest
+from sklearn.linear_model import LinearRegression
 
 from mls_lib.deployment import OnnxSaveModel
+from mls_lib.objects.data_frame import DataFrame
 from mls_lib.objects.path import Path as PathOutput
-from mls_lib.orchestration import Metadata
 
 
 class TestOnnxSaveModel:
@@ -14,6 +14,15 @@ class TestOnnxSaveModel:
         def __init__(self, model):
             # Mimics wrappers returned by other tasks in the pipeline.
             self.model = model
+
+    def _build_features(self):
+        # This sample data is only used to infer input tensor shape for ONNX.
+        features = DataFrame()
+        features.from_np_array(
+            data=[[1.0, 10.0], [2.0, 20.0], [3.0, 30.0], [4.0, 40.0]],
+            headers=["f1", "f2"],
+        )
+        return features
 
     def test_execute_saves_model_in_artifacts_folder(self, tmp_path, monkeypatch):
         """Tests that a model is saved under ./artifacts with .onnx extension."""
@@ -57,43 +66,45 @@ class TestOnnxSaveModel:
 
         assert Path(task.get_output("saved_model_path").get_path()).exists()
 
+    def test_execute_converts_sklearn_model_when_needed(self, tmp_path, monkeypatch):
+        """Tests that sklearn estimators are converted to ONNX before saving."""
+        pytest.importorskip("skl2onnx")
+        monkeypatch.chdir(tmp_path)
+
+        estimator = LinearRegression().fit(
+            [[1.0, 10.0], [2.0, 20.0], [3.0, 30.0], [4.0, 40.0]],
+            [1.0, 2.0, 3.0, 4.0],
+        )
+
+        task = OnnxSaveModel(model_name="sk_model", version="1.0.6")
+        task.set_data(model=estimator, features=self._build_features())
+        task.execute()
+
+        saved_path = Path(task.get_output("saved_model_path").get_path())
+        assert saved_path.exists()
+
+    def test_execute_raises_when_features_missing_for_sklearn_model(self, tmp_path, monkeypatch):
+        """Tests that sklearn conversion requires features to infer input shape."""
+        pytest.importorskip("skl2onnx")
+        monkeypatch.chdir(tmp_path)
+
+        estimator = LinearRegression().fit(
+            [[1.0, 10.0], [2.0, 20.0], [3.0, 30.0], [4.0, 40.0]],
+            [1.0, 2.0, 3.0, 4.0],
+        )
+
+        task = OnnxSaveModel(model_name="sk_model", version="1.0.7")
+        task.set_data(model=estimator)
+
+        with pytest.raises(ValueError, match="requires non-empty features"):
+            task.execute()
+
     def test_execute_raises_value_error_when_model_name_is_empty(self):
         """Tests that execute raises ValueError when model_name is empty."""
-        # model_name validation should happen before writing or metadata creation.
+        # model_name validation should happen before writing the artifact.
         task = OnnxSaveModel(model_name="", version="1.0.5")
         task.set_data(model={"name": "demo-model", "version": 5})
 
         with pytest.raises(ValueError, match="requires a non-empty model_name"):
             task.execute()
 
-    def test_execute_creates_metadata_file(self, tmp_path, monkeypatch):
-        """Tests that the metadata sidecar file is created with expected content."""
-        monkeypatch.chdir(tmp_path)
-
-        # Metadata should preserve pipeline provenance in a sidecar JSON.
-        Metadata.resetMetadata()
-        Metadata.addDataCleaningEntry(
-            Metadata.DataCleaningOperation.REPLACE_NULL_TEXT,
-            columns=["city"],
-            replacement_values=["unknown"],
-        )
-
-        model = onnx.ModelProto()
-        task = OnnxSaveModel(model_name="model", version="3.0.0")
-        task.set_data(model=model)
-        task.execute()
-
-        metadata_path = tmp_path / "artifacts" / "model.onnx.metadata.json"
-        assert metadata_path.exists()
-
-        metadata_content = json.loads(metadata_path.read_text(encoding="utf-8"))
-        assert metadata_content["artifact_type"] == "onnx"
-        assert metadata_content["version"] == "3.0.0"
-        assert metadata_content["model_name"] == "model"
-        assert metadata_content["data_cleaning"] == [
-            {
-                "type": "replace_null_text",
-                "columns": ["city"],
-                "replacement_values": ["unknown"],
-            }
-        ]

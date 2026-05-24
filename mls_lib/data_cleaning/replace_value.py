@@ -1,6 +1,6 @@
 """ Replace Value : Replace Value Data Cleaning Step """
 
-from mls_lib.orchestration import Task, Metadata
+from mls_lib.orchestration import Task
 from mls_lib.objects.data_frame import DataFrame
 
 class ReplaceValue(Task):
@@ -20,9 +20,3 @@ class ReplaceValue(Task):
         self.data_in.set_data(df)
         self._set_output("out", self.data_in)
 
-    def write_metadata(self) -> None:
-        Metadata.addDataCleaningEntry(
-            operation=Metadata.DataCleaningOperation.REPLACE_VALUE,
-            columns=[self.column],
-            replacement_values=[self.value_map],
-        )
