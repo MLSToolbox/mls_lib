@@ -50,5 +50,27 @@ class Scaler(IScaler):
 
         """
         df = data.get_data()
-        df[self.columns] = self.scaler.transform(np.array(df[self.columns]).reshape(-1,1))
+        values = np.array(df[self.columns])
+        if values.ndim == 1:
+            values = values.reshape(-1, 1)
+
+        df[self.columns] = self.scaler.transform(values)
+        data.set_data(df)
+        
+    def inverse_transform(self, data: DataFrame):
+        """
+        Inverse transforms the specified column of the input data using the scaler object.
+
+        Parameters:
+            data (object): The input data to be inverse transformed.
+
+        Returns:
+            None
+        
+        """
+        df = data.get_data()
+        values = df[self.columns].values
+        if values.ndim == 1:
+            values = values.reshape(-1, 1)
+        df[self.columns] = self.scaler.inverse_transform(values)
         data.set_data(df)
