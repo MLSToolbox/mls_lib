@@ -1,0 +1,11 @@
+FROM python:3.11-slim
+WORKDIR /app
+ARG MODEL_FILENAME
+COPY artifacts/deployment/requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+COPY artifacts/deployment/deployment_config.json ./deployment_config.json
+COPY artifacts/${MODEL_FILENAME} ./artifacts/${MODEL_FILENAME}
+COPY artifacts/deployment/service.py ./service.py
+ENV PORT=8000
+EXPOSE 8000
+CMD ["python", "service.py"]

@@ -3,6 +3,8 @@ given column with a given value """
 
 from mls_lib.orchestration import Task
 from mls_lib.objects.data_frame import DataFrame
+
+
 class ReplaceNullText(Task):
     """ Replace Null Text : Replaces all null values of the 
     given column with a given value """
@@ -24,3 +26,4 @@ class ReplaceNullText(Task):
         self.data_in.set_data(df)
 
         self._set_output("out", self.data_in)
+

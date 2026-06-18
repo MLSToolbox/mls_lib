@@ -1,5 +1,6 @@
 """ Pipeline Class"""
 import uuid
+
 class Pipeline:
     """Pipeline: Component that orchestrates a sequence of stages in a pipeline. """
     def __init__(self):

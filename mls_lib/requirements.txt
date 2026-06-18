@@ -1,6 +1,9 @@
 PyYAML
 category_encoders
 scikit-learn
+skl2onnx
 numpy
 pandas
 ultralytics
+joblib
+onnx

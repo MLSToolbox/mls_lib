@@ -19,3 +19,4 @@ class ReplaceValue(Task):
         df[self.column] = df[self.column].map(self.value_map)
         self.data_in.set_data(df)
         self._set_output("out", self.data_in)
+
