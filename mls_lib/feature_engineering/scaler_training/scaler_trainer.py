@@ -1,8 +1,14 @@
 """ Scaler Trainer """
 
+import os
+
+import joblib
+
 from mls_lib.objects.data_frame import DataFrame
 from mls_lib.orchestration.task import Task
 from mls_lib.objects.scalers.iscaler import IScaler
+
+SCALERS_DIR = "scalers"
 
 class ScalerTrainer(Task):
     """ Scaler Trainer """
@@ -20,6 +26,12 @@ class ScalerTrainer(Task):
 
         new_data = DataFrame()
         new_data.set_data(self.data.get_data())
+
+        os.makedirs(SCALERS_DIR, exist_ok=True)
+        scaler_name = "_".join(self.columns)
+        scaler_path = os.path.join(SCALERS_DIR, f"{scaler_name}.pkl")
+        joblib.dump(self.scaler, scaler_path)
+    
 
         self._set_output("scaler", self.scaler)
 
